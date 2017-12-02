@@ -24,34 +24,34 @@ class Profile(models.Model):
         instance.profile.save()
 
 
-class Printer(models.Model):
-    """
-    打印机模型
-    """
+# class Printer(models.Model):
+#     """
+#     打印机模型
+#     """
 
-    # Fields
-    printer_name = models.CharField(max_length=128, help_text="打印机名称")
-    command = models.CharField(max_length=128, help_text="打印命令", default="lp")
-    device_name = models.CharField(max_length=128, help_text="设备名称")
-    host_name = models.CharField(max_length=128, help_text="主机名", blank=True, null=True)
-    port = models.IntegerField(help_text="端口", blank=True, null=True)
-    username = models.CharField(max_length=128, help_text="用户名", blank=True, null=True)
-    media = models.CharField(max_length=128, help_text="介质命令")
-    sides = models.CharField(max_length=128, help_text="双面打印命令")
-    number_up = models.CharField(max_length=128, help_text="每页张数命令")
-    number_up_layout = models.CharField(max_length=128, help_text="布局命令")
-    page_ranges = models.CharField(
-        max_length=128, help_text="页面范围命令")
-    copies = models.CharField(max_length=128, help_text="份数命令")
-    cost_per_page = models.DecimalField(max_digits=10,decimal_places=2, help_text="每页花费", default="0.50")
+#     # Fields
+#     printer_name = models.CharField(max_length=128, help_text="打印机名称")
+#     command = models.CharField(max_length=128, help_text="打印命令", default="lp")
+#     device_name = models.CharField(max_length=128, help_text="设备名称")
+#     host_name = models.CharField(max_length=128, help_text="主机名", blank=True, null=True)
+#     port = models.IntegerField(help_text="端口", blank=True, null=True)
+#     username = models.CharField(max_length=128, help_text="用户名", blank=True, null=True)
+#     media = models.CharField(max_length=128, help_text="介质命令")
+#     sides = models.CharField(max_length=128, help_text="双面打印命令")
+#     number_up = models.CharField(max_length=128, help_text="每页张数命令")
+#     number_up_layout = models.CharField(max_length=128, help_text="布局命令")
+#     page_ranges = models.CharField(
+#         max_length=128, help_text="页面范围命令")
+#     copies = models.CharField(max_length=128, help_text="份数命令")
+#     cost_per_page = models.DecimalField(max_digits=10,decimal_places=2, help_text="每页花费", default="0.50")
 
-    # Metadata
-    class Meta:
-        ordering = ["-id"]
+#     # Metadata
+#     class Meta:
+#         ordering = ["-id"]
 
-    # Methods
-    def get_absolute_url(self):
-         return reverse('model-detail-view', args=[str(self.id)])
+#     # Methods
+#     def get_absolute_url(self):
+#          return reverse('model-detail-view', args=[str(self.id)])
 
-    def __str__(self):
-        return self.printer_name
+#     def __str__(self):
+#         return self.printer_name
