@@ -55,7 +55,7 @@ class BalanceLog(models.Model):
          return reverse('printer-option-detail', args=[str(self.id)])
 
     def __str__(self):
-        return self.id
+        return "%s 的余额变动" % (User.objects.get(pk=self.uid).username)
 
 class Printer(models.Model):
     """
@@ -152,7 +152,7 @@ class PrintJobs(models.Model):
          return reverse('job-detail', args=[str(self.id)])
 
     def __str__(self):
-        return self.created_time
+        return "%s 创建的打印 %s 的任务"%(User.objects.get(pk=self.uid).username, self.upload)
 
 
 class RedeemCode(models.Model):
