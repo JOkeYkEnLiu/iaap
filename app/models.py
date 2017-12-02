@@ -110,6 +110,8 @@ class PrinterOptions(models.Model):
     def get_absolute_url(self):
          return reverse('printer-option-detail', args=[str(self.id)])
 
+    def __str__(self):
+        return self.description
 
 
 class PrintJobs(models.Model):
@@ -150,7 +152,7 @@ class PrintJobs(models.Model):
          return reverse('job-detail', args=[str(self.id)])
 
     def __str__(self):
-        return self.id
+        return self.created_time
 
 
 class RedeemCode(models.Model):
@@ -176,6 +178,6 @@ class RedeemCode(models.Model):
          return reverse('redeem-code-detail', args=[str(self.id)])
 
     def __str__(self):
-        return self.id
+        return self.amount
 
 
