@@ -11,7 +11,7 @@ from django.urls import reverse
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    balance = models.FloatField(default=0.00)
+    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, help_text="账户余额")
 
 
     @receiver(post_save, sender=User)
@@ -23,6 +23,39 @@ class Profile(models.Model):
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
 
+
+class BalanceLog(models.Model):
+    """
+    余额变动模型
+    """
+    OPERATION_TYPES = (
+        (0, '打印扣费'),
+        (1, '兑换码充值'),
+        (2, '微信充值'),
+        (3, '支付宝充值'),
+        (4, '后台修改'),
+    )
+
+    # Fields
+    uid = models.IntegerField(help_text="用户")
+    operator = models.IntegerField(help_text="操作者")
+    operation_time = models.TimeField(help_text="操作时间")
+    operation_type = models.IntegerField(choices=OPERATION_TYPES,default="变动类型")
+    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, help_text="初始余额")
+    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, help_text="变动余额")
+    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, help_text="结束余额")
+
+    # Metadata
+
+    class Meta:
+        ordering = ["-id"]
+
+    # Methods
+    def get_absolute_url(self):
+         return reverse('printer-option-detail', args=[str(self.id)])
+
+    def __str__(self):
+        return self.id
 
 class Printer(models.Model):
     """
@@ -77,8 +110,6 @@ class PrinterOptions(models.Model):
     def get_absolute_url(self):
          return reverse('printer-option-detail', args=[str(self.id)])
 
-    def __str__(self):
-        return self.id
 
 
 class PrintJobs(models.Model):
@@ -86,13 +117,19 @@ class PrintJobs(models.Model):
     打印任务模型
     """
 
+    SIDED_CHOICES = (
+        (1, '单面打印'),
+        (2, '长边装订双面打印'),
+        (3, '短边装订双面打印'),
+    )
+
     # Fields
     pid = models.IntegerField(help_text="所选打印机")
     uid = models.IntegerField(help_text="用户")
     upload = models.FileField(upload_to='uploads/%Y/%m/%d/', default="文件")
     file_pages = models.IntegerField(help_text="文件页数")
     verify = models.CharField(max_length=128, help_text="校验码")
-    sided = models.IntegerField(help_text="1 为单面打印双面打印，2 为长边装订双面打印，3 为短边装订双面打印")
+    sided = models.IntegerField(choices=SIDED_CHOICES, help_text='双面打印选项')
     number_up = models.IntegerField(help_text="每张页数", default=1)
     number_up_layout = models.CharField(max_length=128, help_text="介质")
     page_ranges = models.CharField(max_length=128, help_text="页面范围")
@@ -100,7 +137,7 @@ class PrintJobs(models.Model):
     print_pages = models.IntegerField(help_text="实际打印张数")
     cost = models.DecimalField(max_digits=10, decimal_places=2, help_text="花费")
     created_time = models.TimeField(help_text="任务创建时间")
-    is_printed = models.BooleanField(help_text="是否打印?")
+    is_printed = models.BooleanField(help_text="是否打印完成?")
     printed_time = models.TimeField(help_text="任务打印时间（可选）", blank=True, null=True)
 
 
