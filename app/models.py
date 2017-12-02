@@ -24,7 +24,7 @@ class Profile(models.Model):
         instance.profile.save()
 
 
-class Printers(models.Model):
+class Printer(models.Model):
     """
     打印机模型
     """
