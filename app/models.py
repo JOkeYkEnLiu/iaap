@@ -40,7 +40,8 @@ class Printer(models.Model):
     sides = models.CharField(max_length=128, help_text="双面打印命令")
     number_up = models.CharField(max_length=128, help_text="每页张数命令")
     number_up_layout = models.CharField(max_length=128, help_text="布局命令")
-    page_ranges = models.CharField(max_length=128, help_text="页面范围命令")
+    page_ranges = models.CharField(
+        max_length=128, help_text="页面范围命令", default="-o page-range=")
     copies = models.CharField(max_length=128, help_text="份数命令")
     cost_per_page = models.DecimalField(max_digits=10,decimal_places=2, help_text="每页花费", default="0.50")
 
