@@ -34,7 +34,7 @@ class Printer(models.Model):
     command = models.CharField(max_length=128, help_text="打印命令", default="lp")
     device_name = models.CharField(max_length=128, help_text="设备名称")
     host_name = models.CharField(max_length=128, help_text="主机名", null=True)
-    port = models.IntegerField(max_length=8, help_text="端口", null=True)
+    port = models.IntegerField(help_text="端口", null=True)
     username = models.CharField(max_length=128, help_text="用户名", null=True)
     media = models.CharField(max_length=128, help_text="介质命令")
     sides = models.CharField(max_length=128, help_text="双面打印命令")
@@ -45,7 +45,7 @@ class Printer(models.Model):
 
     # Metadata
     class Meta:
-        ordering = ["-pid"]
+        ordering = ["-id"]
 
     # Methods
     def get_absolute_url(self):
