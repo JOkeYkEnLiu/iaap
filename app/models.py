@@ -52,7 +52,7 @@ class BalanceLog(models.Model):
 
     # Methods
     def get_absolute_url(self):
-         return reverse('printer-option-detail', args=[str(self.id)])
+         return reverse('balance-log-detail', args=[str(self.id)])
 
     def __str__(self):
         return "%s 的余额变动" % (User.objects.get(pk=self.uid).username)
