@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 
-# Register your models here.
-# from .models import Printer
+Register your models here.
+from .models import Printer
 
 
-# admin.site.register(Printer)
+admin.site.register(Printer)
