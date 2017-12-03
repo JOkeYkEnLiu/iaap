@@ -36,6 +36,7 @@ def user_login(request):
             state = 'not_exist_or_password_error'
 
     context = {
+        
         # 'loginForm': LoginForm(),
         # 'state': state,
     }
