@@ -29,7 +29,7 @@ def user_login(request):
 
         if user:
             if remember_me:
-                request.session.set_expiry(30)
+                request.session.set_expiry(60*60*24*14)
             if user.is_active:
                 auth.login(request, user)
                 return HttpResponseRedirect('/user/')
