@@ -23,10 +23,13 @@ def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+        remember_me = request.POST.get('remember')
 
         user = auth.authenticate(username=username, password=password)
 
         if user:
+            if remember_me:
+                request.session.set_expiry(60 * 3600 * 24 * 14)
             if user.is_active:
                 auth.login(request, user)
                 return HttpResponseRedirect('/user/')
