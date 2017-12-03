@@ -10,6 +10,7 @@ import app.views as views
 
 urlpatterns = [
                 url(r'^$', views.index, name='index'),
+                url(r'^redirect/', views.redirect_url, name='redirect_url'),
                 url(r'^about/', views.about, name='about'),
                 url(r'^auth/login/', views.user_login, name='user_login'),
                 url(r'^auth/logout/', views.user_logout, name='user_logout'),
