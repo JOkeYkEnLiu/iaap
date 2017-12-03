@@ -10,6 +10,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!--begin::Web font -->
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
+    <style>
+        #logo_text:hover {
+            text-decoration: none
+        }
+    
+        #logo_text {
+            font-family: 'Exo 2', sans-serif;
+            color: rgb(245, 245, 245);
+            font-size: xx-large;
+            font-style: italic;
+        }
+    </style>
     <script>
         WebFont.load({
             google: { "families": ["Montserrat:300,400,500,600,700", "Roboto:300,400,500,600,700"] },
@@ -44,8 +57,8 @@
                     <div class="m-grid__item m-brand">
                         <div class="m-stack m-stack--ver m-stack--general m-stack--inline">
                             <div class="m-stack__item m-stack__item--middle m-brand__logo">
-                                <a href="index.html" class="m-brand__logo-wrapper">
-                                    <img alt="" src="{% static '/media/img/logo/logo.png' %}" />
+                                <a href="index.html" class="m-brand__logo-wrapper" id="">
+                                    IAAP
                                 </a>
                             </div>
                         </div>
@@ -82,16 +95,16 @@
                                                         <div class="m-scrollable" data-scrollable="false" data-max-height="380" data-mobile-max-height="200">
                                                             <div class="m-nav-grid m-nav-grid--skin-light">
                                                                 <div class="m-nav-grid__row">
-                                                                    <a href="#" class="m-nav-grid__item">
+                                                                    <a href="/user/report/" class="m-nav-grid__item">
                                                                         <i class="m-nav-grid__icon flaticon-file"></i>
                                                                         <span class="m-nav-grid__text">
-                                                                            Generate Report
+                                                                            本月打印报告
                                                                         </span>
                                                                     </a>
-                                                                    <a href="#" class="m-nav-grid__item">
+                                                                    <a href="/user/ticket/new" class="m-nav-grid__item">
                                                                         <i class="m-nav-grid__icon flaticon-time"></i>
                                                                         <span class="m-nav-grid__text">
-                                                                            Add New Event
+                                                                            创建新工单
                                                                         </span>
                                                                     </a>
                                                                 </div>
@@ -128,7 +141,7 @@
                                                 </span>
                                             </span>
                                             <span class="m-topbar__userpic">
-                                                <img src="{% static '/app/media/avatar/{{uid}}' %}" class="m--img-rounded m--marginless m--img-centered" alt="" />
+                                                <img src="{% static '/app/media/avatar/default.png' %}" class="m--img-rounded m--marginless m--img-centered" alt="" />
                                             </span>
                                         </a>
                                         <div class="m-dropdown__wrapper">
@@ -143,7 +156,7 @@
                                                             <span class="m-card-user__name m--font-weight-500">
                                                                 {{user.username}}
                                                             </span>
-                                                            <a href="" class="m-card-user__email m--font-weight-300 m-link">
+                                                            <a href="/user/profile" class="m-card-user__email m--font-weight-300 m-link">
                                                                 {{user.email}}
                                                             </a>
                                                         </div>
@@ -158,7 +171,7 @@
                                                                 </span>
                                                             </li>
                                                             <li class="m-nav__item">
-                                                                <a href="profile.html" class="m-nav__link">
+                                                                <a href="/user/profile" class="m-nav__link">
                                                                     <i class="m-nav__link-icon flaticon-profile-1"></i>
                                                                     <span class="m-nav__link-title">
                                                                         <span class="m-nav__link-wrap">
@@ -170,24 +183,16 @@
                                                                 </a>
                                                             </li>
                                                             <li class="m-nav__item">
-                                                                <a href="profile.html" class="m-nav__link">
+                                                                <a href="user/activity" class="m-nav__link">
                                                                     <i class="m-nav__link-icon flaticon-share"></i>
                                                                     <span class="m-nav__link-text">
-                                                                        Activity
-                                                                    </span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="m-nav__item">
-                                                                <a href="profile.html" class="m-nav__link">
-                                                                    <i class="m-nav__link-icon flaticon-chat-1"></i>
-                                                                    <span class="m-nav__link-text">
-                                                                        Messages
+                                                                        账户活动
                                                                     </span>
                                                                 </a>
                                                             </li>
                                                             <li class="m-nav__separator m-nav__separator--fit"></li>
                                                             <li class="m-nav__item">
-                                                                <a href="profile.html" class="m-nav__link">
+                                                                <a href="/user/faq" class="m-nav__link">
                                                                     <i class="m-nav__link-icon flaticon-info"></i>
                                                                     <span class="m-nav__link-text">
                                                                         FAQ
@@ -195,17 +200,17 @@
                                                                 </a>
                                                             </li>
                                                             <li class="m-nav__item">
-                                                                <a href="profile.html" class="m-nav__link">
+                                                                <a href="/user/support/" class="m-nav__link">
                                                                     <i class="m-nav__link-icon flaticon-lifebuoy"></i>
                                                                     <span class="m-nav__link-text">
-                                                                        Support
+                                                                        支持信息
                                                                     </span>
                                                                 </a>
                                                             </li>
                                                             <li class="m-nav__separator m-nav__separator--fit"></li>
                                                             <li class="m-nav__item">
-                                                                <a href="snippets/pages/user/login.html" class="btn m-btn--pill btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">
-                                                                    Logout
+                                                                <a href="/auth/logout" class="btn m-btn--pill btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">
+                                                                    登出
                                                                 </a>
                                                             </li>
                                                         </ul>
