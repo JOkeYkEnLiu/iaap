@@ -11,6 +11,9 @@ from django.contrib.auth.decorators import login_required
 from .models import Profile, BalanceLog, Printer, PrinterOptions, PrintJobs, RedeemCode
 
 
+def index(request):
+    return HttpResponse("这是首页")
+
 def user_login(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect('/')
