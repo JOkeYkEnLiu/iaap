@@ -16,7 +16,7 @@ def index(request):
 
 def user_login(request):
     if request.user.is_authenticated():
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/user/')
 
     state = None
 
