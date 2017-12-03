@@ -948,51 +948,54 @@
                 </div>
                 <!-- end::Horizontal Menu -->
             </div>
+            <div class="m-grid__item m-grid__item--fluid m-grid m-grid--desktop m-grid--ver-desktop m-body__content">
+            </div>
         </div>
-        <!-- end::horizontal_nav -->
-        <!-- begin::Body -->
-        {% block body %}{% endblock %}
-        <!-- end::Body -->
-        <!-- begin::Footer -->
-        <footer class="m-grid__item		m-footer ">
-            <div class="m-container m-container--responsive m-container--xxl">
-                <div class="m-footer__wrapper">
-                    <div class="m-stack m-stack--flex-tablet-and-mobile m-stack--ver m-stack--desktop">
-                        <div class="m-stack__item m-stack__item--left m-stack__item--middle m-stack__item--last">
-                            <span class="m-footer__copyright">
-                                2017 ©
-                                <a href="https://github.com/KennardZhang/iaap" class="m-link">IAAP</a> made by
-                                <a href="#" class="m-link">Kennard Zhang</a>
-                            </span>
-                        </div>
-                        <div class="m-stack__item m-stack__item--right m-stack__item--middle m-stack__item--first">
-                            <ul class="m-footer__nav m-nav m-nav--skin-dark m-nav--inline m--pull-right">
-                                <li class="m-nav__item">
-                                    <a href="/about" class="m-nav__link">
-                                        <span class="m-nav__link-text">
-                                            About
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="m-nav__item">
-                                    <a href="/privacy" class="m-nav__link">
-                                        <span class="m-nav__link-text">
-                                            Privacy
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="m-nav__item m-nav__item--last">
-                                    <a href="#" class="m-nav__link" data-toggle="m-tooltip" title="" data-placement="left" data-original-title="Support Center">
-                                        <i class="m-nav__link-icon flaticon-info m--icon-font-size-lg3"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+        <div class="m-grid__item m-grid__item--fluid m-wrapper">
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+    <!-- end::horizontal_nav -->
+    <!-- begin::Footer -->
+    <footer class="m-grid__item		m-footer ">
+        <div class="m-container m-container--responsive m-container--xxl">
+            <div class="m-footer__wrapper">
+                <div class="m-stack m-stack--flex-tablet-and-mobile m-stack--ver m-stack--desktop">
+                    <div class="m-stack__item m-stack__item--left m-stack__item--middle m-stack__item--last">
+                        <span class="m-footer__copyright">
+                            2017 ©
+                            <a href="https://github.com/KennardZhang/iaap" class="m-link">IAAP</a> made by
+                            <a href="#" class="m-link">Kennard Zhang</a>
+                        </span>
+                    </div>
+                    <div class="m-stack__item m-stack__item--right m-stack__item--middle m-stack__item--first">
+                        <ul class="m-footer__nav m-nav m-nav--skin-dark m-nav--inline m--pull-right">
+                            <li class="m-nav__item">
+                                <a href="/about" class="m-nav__link">
+                                    <span class="m-nav__link-text">
+                                        About
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="/privacy" class="m-nav__link">
+                                    <span class="m-nav__link-text">
+                                        Privacy
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__item m-nav__item--last">
+                                <a href="#" class="m-nav__link" data-toggle="m-tooltip" title="" data-placement="left" data-original-title="Support Center">
+                                    <i class="m-nav__link-icon flaticon-info m--icon-font-size-lg3"></i>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </footer>
-    </div>
+        </div>
+    </footer>
+</div>
     <!-- end:: Page -->
     <!-- begin::Scroll Top -->
     <div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
