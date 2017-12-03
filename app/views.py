@@ -12,7 +12,10 @@ from .models import Profile, BalanceLog, Printer, PrinterOptions, PrintJobs, Red
 
 
 def index(request):
-    return HttpResponse("首页")
+    # return HttpResponse("首页")
+    user = request.user
+    title = "IAAP | 控制板"
+    return render(request, 'user/index.html', locals())
 
 def user_login(request):
     if request.user.is_authenticated():
