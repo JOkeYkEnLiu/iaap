@@ -46,9 +46,10 @@ def about(request):
     return HttpResponse("这是关于页面")
 
 
+@login_required
 def user_logout(request):
     auth.logout(request)
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect('/user/')
 
 def user_register(request):
     return HttpResponse("这是注册页面")
@@ -56,23 +57,29 @@ def user_register(request):
 def password_reset(request):
     return HttpResponse("这是密码重置页面")
 
+
+@login_required
 def user_index(request):
     user = request.user
     title = "IAAP | 控制面板"
-    if request.user.is_authenticated():
-        pass
-    else:
-        return HttpResponseRedirect('/auth/login/')
     return render(request, 'user/index.html', locals())
 
+
+@login_required
 def profile(request):
     return HttpResponse("这是用户信息页")
 
+
+@login_required
 def code(request):
     return HttpResponse("这是兑换码页")
 
+
+@login_required
 def print_index(request):
     return HttpResponse("这是打印首页")
 
+
+@login_required
 def announcement(request):
     return HttpResponse("这是公告页")
