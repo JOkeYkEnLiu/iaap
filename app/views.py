@@ -56,6 +56,10 @@ def password_reset(request):
 def user_index(request):
     user = request.user
     title = "IAAP | 控制面板"
+    if request.user.is_authenticated():
+        pass
+    else:
+        return HttpResponseRedirect('/auth/login/')
     return render(request, 'user/index.html', locals())
 
 def profile(request):
