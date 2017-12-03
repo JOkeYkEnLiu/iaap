@@ -61,7 +61,7 @@ def password_reset(request):
 def user_index(request):
     user = request.user
     title = IAAP | 控制板
-    return render(request, 'auth/login.html', locals())
+    return render(request, 'user/index.html', locals())
 
 def profile(request):
     return HttpResponse("这是用户信息页")
