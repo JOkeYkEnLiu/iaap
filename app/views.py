@@ -41,3 +41,33 @@ def user_login(request):
     }
 
     return render(request, 'app/login.html', context)
+
+
+def about(request):
+    return HttpResponse("这是关于页面")
+
+
+def user_logout(request):
+    return HttpResponse("这是登出页面")
+
+
+def user_register(request):
+    return HttpResponse("这是注册页面")
+
+def password_reset(request):
+    return HttpResponse("这是密码重置页面")
+
+def user_index(request):
+    return HttpResponse("这是用户首页")
+
+def profile(request):
+    return HttpResponse("这是用户信息页")
+
+def code(request):
+    return HttpResponse("这是兑换码页")
+
+def print_index(request):
+    return HttpResponse("这是打印首页")
+
+def announcement(request):
+    return HttpResponse("这是公告页")
