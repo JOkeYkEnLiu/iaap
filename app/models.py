@@ -88,7 +88,7 @@ class Printer(models.Model):
         max_length=128, help_text="页面范围命令")
     copies = models.CharField(max_length=128, help_text="份数命令")
     cost_per_page = models.DecimalField(max_digits=10,decimal_places=2, help_text="每页花费", default="0.50")
-    status=model.IntegerField(choices=StatusChoices, help_text="打印机状态")
+    status=models.IntegerField(choices=StatusChoices, help_text="打印机状态")
 
     # Metadata
     class Meta:
