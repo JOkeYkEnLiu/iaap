@@ -44,8 +44,8 @@ def about(request):
 
 
 def user_logout(request):
-    return HttpResponse("这是登出页面")
-
+    auth.logout(request)
+    return HttpResponseRedirect('/')
 
 def user_register(request):
     return HttpResponse("这是注册页面")
