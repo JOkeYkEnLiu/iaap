@@ -36,12 +36,12 @@ def user_login(request):
             state = 'not_exist_or_password_error'
 
     context = {
-        
+
         # 'loginForm': LoginForm(),
         # 'state': state,
     }
 
-    return render(request, 'app/login.html', context)
+    return render(request, 'auth/login.html', context)
 
 
 def about(request):
