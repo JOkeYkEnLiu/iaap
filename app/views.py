@@ -36,7 +36,7 @@ def user_login(request):
             state = 'not_exist_or_password_error'
 
 
-    return render(request, 'auth/login.html', state)
+    return render(request, 'auth/login.html', locals())
 
 
 def about(request):
