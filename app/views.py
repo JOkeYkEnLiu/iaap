@@ -19,15 +19,15 @@ def redirect_url(request):
     code = request.GET.get('code')
     state = request.GET.get('state')
     redirect_url = request.GET.get('redirect_url')
-    if code == 100:
+    if code == '100':
         title = '成功！'
         state = '登录成功，即将跳转。'
         redirect_url = '/user/'
-    elif code == 101:
+    elif code == '101':
         title = '成功！'
         state = '注册成功，即将跳转。'
         redirect_url = '/auth/login'
-    elif code == 102:
+    elif code == '102':
         title = '成功！'
         state = '登出成功，即将跳转。'
         redirect_url = '/auth/login'
