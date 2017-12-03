@@ -12,10 +12,7 @@ from .models import Profile, BalanceLog, Printer, PrinterOptions, PrintJobs, Red
 
 
 def index(request):
-    # return HttpResponse("首页")
-    user = request.user
-    title = "IAAP | 控制板"
-    return render(request, 'user/index.html', locals())
+    return HttpResponse("首页")
 
 def user_login(request):
     if request.user.is_authenticated():
@@ -24,26 +21,22 @@ def user_login(request):
     state = None
 
     if request.method == 'POST':
-        username = request.POST.get('username')
+        email = request.POST.get('email')
         password = request.POST.get('password')
 
-        user = auth.authenticate(username=username, password=password)
+        user = auth.authenticate(email=email, password=password)
 
         if user:
             if user.is_active:
                 auth.login(request, user)
-                return HttpResponseRedirect('/')
+                return HttpResponseRedirect('/user/')
             else:
-                return HttpResponse(u'你的账户未启用，请联系管理员。')
+                state = 'not_active'
         else:
             state = 'not_exist_or_password_error'
 
-    context = {
-        # 'loginForm': LoginForm(),
-        # 'state': state,
-    }
 
-    return render(request, 'auth/login.html', context)
+    return render(request, 'auth/login.html', state)
 
 
 def about(request):
@@ -62,7 +55,7 @@ def password_reset(request):
 
 def user_index(request):
     user = request.user
-    title = "IAAP | 控制板"
+    title = "IAAP | 控制面板"
     return render(request, 'user/index.html', locals())
 
 def profile(request):
