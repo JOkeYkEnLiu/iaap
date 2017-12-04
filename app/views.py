@@ -18,19 +18,20 @@ def redirect_url(request):
     title = request.GET.get('title')
     code = request.GET.get('code')
     state = request.GET.get('state')
+    next_url = request.GET.get('next')
     redirect_url = request.GET.get('redirect_url')
     if code == '100':
         title = '成功！'
         state = '登录成功，即将跳转。'
-        redirect_url = '/user/'
+        redirect_url = next_url or '/user/'
     elif code == '101':
         title = '成功！'
         state = '注册成功，即将跳转。'
-        redirect_url = '/auth/login'
+        redirect_url = next_url or '/auth/login'
     elif code == '102':
         title = '成功！'
         state = '登出成功，即将跳转。'
-        redirect_url = '/auth/login'
+        redirect_url = next_url or '/auth/login'
     else:
         pass
     return render(request, 'redirect.html', locals())
@@ -42,7 +43,7 @@ def user_login(request):
         return HttpResponseRedirect('/user/')
 
     state = None
-
+    next_url = request.GET.get('next')
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -55,6 +56,8 @@ def user_login(request):
                 request.session.set_expiry(60*60*24*14)
             if user.is_active:
                 auth.login(request, user)
+                if next_url:
+                    return HttpResponseRedirect('/redirect/?code=100&next=%s'%next_url)
                 return HttpResponseRedirect('/redirect/?code=100')
             else:
                 state = 'not_active'
