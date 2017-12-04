@@ -20,9 +20,6 @@
             <div class="m-portlet m-portlet--full-height   m-portlet--rounded">
                 <div class="m-portlet__body">
                     <div class="m-card-profile">
-                        <div class="m-card-profile__title m--hide">
-                            Your Profile
-                        </div>
                         <div class="m-card-profile__pic">
                             <div class="m-card-profile__pic-wrapper">
                                 {% load static %}
@@ -65,10 +62,6 @@
                                 </span>
                             </a>
                         </li>
-
-
-
-
                     </ul>
                     <div class="m-portlet__body-separator"></div>
                     <div class="m-widget1 m-widget1--paddingless">
@@ -84,7 +77,8 @@
                                 </div>
                                 <div class="col m--align-right">
                                     <span class="m-widget1__number m--font-brand">
-                                        {{user.balance}}
+                                        <!-- {{user.balance}} -->
+                                        ¥20
                                     </span>
                                 </div>
                             </div>
@@ -101,7 +95,8 @@
                                 </div>
                                 <div class="col m--align-right">
                                     <span class="m-widget1__number m--font-danger">
-                                        {{number_of_orders_in_7_days}}
+                                        <!-- {{number_of_orders_in_7_days}} -->
+                                        15
                                     </span>
                                 </div>
                             </div>
@@ -126,7 +121,8 @@
                 </div>
                 <div class="tab-content">
                     <div class="tab-pane active" id="m_user_profile_tab_1">
-                        <form class="m-form m-form--fit m-form--label-align-right">
+                        <form class="m-form m-form--fit m-form--label-align-right" action="/user/profile/" method="POST">
+                            {% csrf_token %}
                             <div class="m-portlet__body">
                                 <div class="form-group m-form__group row">
                                     <div class="col-10 ml-auto">
