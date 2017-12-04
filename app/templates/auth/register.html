@@ -63,57 +63,56 @@
                                 登录至控制面板
                             </h3>
                         </div>
-                        {% if state == "not_exist_or_password_error" %}
-                        <div class="alert alert-warning">
-                            <a href="#" class="close" data-dismiss="alert">&times;</a>
-                            {% if state == 'success' %}
-                            <h2> 注册成功！ </h2>
-                            {% elif state == 'repeat_error' %}
-                            <h2> 密码重复错误 </h2>
-                            {% elif state == 'empty' %}
-                            <h2> 密码不能为空 </h2>
-                            {% elif state == 'user_exist' %}
-                            <h2> 用户已经存在 </h2>
-                            {% endif %}
-                        </div>
-                        <div>
-
+                        <div style="margin-top:4rem">
+                            {% if state == "not_exist_or_password_error" %}
+                            <div class="alert alert-warning">
+                                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                {% if state == 'success' %}
+                                <h2> 注册成功！ </h2>
+                                {% elif state == 'repeat_error' %}
+                                <h2> 密码重复错误 </h2>
+                                {% elif state == 'empty' %}
+                                <h2> 密码不能为空 </h2>
+                                {% elif state == 'user_exist' %}
+                                <h2> 用户已经存在 </h2>
+                                {% elif state == 'email_exist' %}
+                                <h2> 邮箱地址已经存在 </h2>
+                                {% endif %}
+                            </div>
                         </div>
                         <form class="m-login__form m-form" action="/auth/login/" method="POST">
                             {% csrf_token %}
                             <div class="form-group m-form__group">
-                                <input class="form-control m-input" type="text" placeholder="用户名" name="username" autocomplete="off">
+                                <input class="form-control m-input" type="text" placeholder="{{username}}" name="username" autocomplete="off">
                             </div>
                             <div class="form-group m-form__group">
-                                <input class="form-control m-input m-login__form-input--last" type="password" placeholder="密码" name="password">
+                                <input class="form-control m-input" type="email" placeholder="{{email}}" name="email" autocomplete="off">
+                            </div>
+                            <div class="form-group m-form__group">
+                                <input class="form-control m-input" type="password" placeholder="{{password}}" name="password">
+                            </div>
+                            <div class="form-group m-form__group">
+                                <input class="form-control m-input m-login__form-input--last" type="repeat_password" placeholder="{{repeat_passwor}}" name="password">
                             </div>
                             <div class="row m-login__form-sub">
                                 <div class="col m--align-left m-login__form-left">
-                                    <label class="m-checkbox  m-checkbox--focus">
-                                        <input type="checkbox" name="remember"> 记住我
-                                        <span></span>
-                                    </label>
-                                </div>
-                                <div class="col m--align-right m-login__form-right">
-                                    <a href="/auth/password_reset" id="m_login_forget_password" class="m-link">
-                                        忘记密码？
-                                    </a>
+                                    注册即代表同意<a href="">服务条款</a>，以及保证所录入信息的真实性，如有不实信息会导致账号被删除。
                                 </div>
                             </div>
                             <div class="m-login__form-action">
                                 <button id="m_login_signin_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air m-login__btn m-login__btn--primary">
-                                    登录
+                                    注册
                                 </button>
                             </div>
                         </form>
                     </div>
                     <div class="m-login__account">
                         <span class="m-login__account-msg">
-                            还没有账户？
+                            已有账户？
                         </span>
                         &nbsp;&nbsp;
-                        <a href="/auth/register" id="m_login_signup" class="m-link m-link--light m-login__account-link">
-                            注册
+                        <a href="/auth/login" id="m_login_signup" class="m-link m-link--light m-login__account-link">
+                            登录
                         </a>
                     </div>
                 </div>

@@ -79,7 +79,34 @@ def user_logout(request):
     return HttpResponseRedirect('/redirect/?code=102')
 
 def user_register(request):
-    return HttpResponse("这是注册页面")
+    username = '用户名（用于登录）'
+    email = '邮箱'
+    password = '密码'
+    repeat_password = '重复密码'
+
+    if request.user.is_authenticated():
+        return HttpResponseRedirect('/user/')
+    state = None
+    if request.method == 'POST':
+        password = request.POST.get('password')
+        repeat_password = request.POST.get('repeat_password')
+        if password == '' or repeat_password == '' or password == '密码' or repeat_password == '重复密码' or username == '' or username == '用户名（用于登录）' or email == '' or email == '邮箱':
+            state = 'empty'
+        elif password != repeat_password:
+            state = 'repeat_error'
+        else:
+            username = request.POST.get('username')
+            email = request.POST.get('name')
+            if User.objects.filter(username=username):
+                state = 'user_exist'
+            elif User.objects.filter(email=email):
+                state = 'email_exist'
+            else:
+                new_user = User.objects.create(username=username)
+                new_user.save()
+                state = 'success'
+                auth.login(request, new_user)
+    return render(request, 'auth/register.html', locals())
 
 def password_reset(request):
     return HttpResponse("这是密码重置页面")
@@ -97,6 +124,8 @@ def user_index(request):
 def profile(request):
     user = request.user
     title = "IAAP | 用户资料"
+    if request.method == "POST":
+
     return render(request, 'user/profile.html', locals())
 
 
