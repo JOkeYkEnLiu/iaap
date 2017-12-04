@@ -16,6 +16,12 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+import app.views as views
+from django.conf.urls import handler404, handler500
+
+handler404 = views.page_error
+handler500 = views.page_error
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('app.urls')),

@@ -8,12 +8,6 @@ from django.conf import settings
 
 import app.views as views
 
-from django.conf.urls import handler404, handler500
-
-
-handler404 = views.page_error
-handler500 = views.page_error
-
 urlpatterns = [
                 url(r'^$', views.index, name='index'),
                 url(r'^redirect/', views.redirect_url, name='redirect_url'),
