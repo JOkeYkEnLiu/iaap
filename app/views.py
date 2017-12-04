@@ -91,6 +91,10 @@ def user_register(request):
         password = request.POST.get('password')
         repeat_password = request.POST.get('repeat_password')
         if password == '' or repeat_password == '' or password == '密码' or repeat_password == '重复密码' or username == '' or username == '用户名' or email == '' or email == '邮箱':
+            username = username or '用户名'
+            email = email or '邮箱'
+            password = password or '密码'
+            repeat_password = repeat_password or '重复密码'
             state = 'empty'
         elif password != repeat_password:
             state = 'repeat_error'
