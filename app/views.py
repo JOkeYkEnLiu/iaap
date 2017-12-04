@@ -97,7 +97,7 @@ def user_register(request):
         else:
             username = request.POST.get('username')
             email = request.POST.get('name')
-            if User.objects.filter(username=username):
+            if Uzser.objects.filter(username=username):
                 state = 'user_exist'
             elif User.objects.filter(email=email):
                 state = 'email_exist'
@@ -105,7 +105,6 @@ def user_register(request):
                 new_user = User.objects.create(username=username)
                 new_user.save()
                 state = 'success'
-                auth.login(request, new_user)
     return render(request, 'auth/register.html', locals())
 
 def password_reset(request):
