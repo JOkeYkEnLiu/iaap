@@ -73,6 +73,7 @@ def user_logout(request):
     auth.logout(request)
     return HttpResponseRedirect('/redirect/?code=102')
 
+
 def user_register(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect('/user/')
@@ -97,6 +98,7 @@ def user_register(request):
                 state = 'success'
                 auth.login(request, new_user)
     return render(request, 'auth/register.html', locals())
+
 
 def password_reset(request):
     return render(request, 'auth/password_reset.html')
