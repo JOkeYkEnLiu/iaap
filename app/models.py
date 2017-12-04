@@ -135,6 +135,16 @@ class PrintJobs(models.Model):
         (2, '长边装订双面打印'),
         (3, '短边装订双面打印'),
     )
+    STATUS_CHOICES = (
+        (0, '已完成'),
+        (1, '未完成'),
+    )
+
+    PAYMENT_CHOICES = (
+        (1, '余额支付'),
+        (2, '线上支付'),
+        (99, '我是管理员'),
+    )
 
     # Fields
     pid = models.IntegerField(help_text="所选打印机")
@@ -149,8 +159,9 @@ class PrintJobs(models.Model):
     copies = models.IntegerField(help_text="份数", default=1)
     print_pages = models.IntegerField(help_text="实际打印张数")
     cost = models.DecimalField(max_digits=10, decimal_places=2, help_text="花费")
+    payment = models.IntegerField(choices=PAYMENT_CHOICES, help="支付方式")
     created_time = models.TimeField(help_text="任务创建时间")
-    is_printed = models.BooleanField(help_text="是否打印完成?")
+    status = models.IntegerField(choices=STATUS_CHOICES, help_text="任务状态")
     printed_time = models.TimeField(help_text="任务打印时间（可选）", blank=True, null=True)
 
 
