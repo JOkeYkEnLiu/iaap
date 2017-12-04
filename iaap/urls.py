@@ -18,7 +18,6 @@ from django.contrib import admin
 
 import app.views as views
 from django.conf.urls import handler404, handler500
-from django.conf import settings
 
 handler404 = views.page_error
 handler500 = views.page_error
@@ -28,9 +27,3 @@ urlpatterns = [
     url(r'', include('app.urls')),
     url(r'^', include('app.urls')),
 ]
-if settings.DEBUG is False:
-    urlpatterns += patterns('',
-                            url(r'^assets/(?P<path>.*)$', 'django.views.static.serve', {
-                                'document_root': settings.STATIC_ROOT,
-                            }),
-                            )
