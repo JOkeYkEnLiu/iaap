@@ -81,7 +81,7 @@
                             </div>
                         </div>
                         {% endif %}
-                        <form class="m-login__form m-form" action="/auth/login/" method="POST">
+                        <form class="m-login__form m-form" action="/auth/register/" method="POST">
                             {% csrf_token %}
                             <div class="form-group m-form__group">
                                 <input class="form-control m-input" type="text" placeholder="{{username}}" name="username" autocomplete="off">
