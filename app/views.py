@@ -8,7 +8,7 @@ from django import forms
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 # Create your views here.
-from .models import Profile, BalanceLog, Printer, PrinterOptions, PrintJobs, RedeemCode
+from .models import Profile, BalanceLog, Printer, PrinterOptions, PrintJobs, RedeemCode, User
 
 
 def index(request):
