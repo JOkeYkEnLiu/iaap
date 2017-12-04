@@ -42,13 +42,14 @@ def user_login(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect('/user/')
 
+    next_url = request.GET.get('next_url')
     state = None
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         remember_me = request.POST.get('remember')
-        next_url = request.GET.get('next')
-        
+        next_url = request.POST.get('next_url')
+
         user = auth.authenticate(username=username, password=password)
 
         if user:
