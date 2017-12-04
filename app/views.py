@@ -42,7 +42,7 @@ def user_login(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect('/user/')
 
-    next_url = request.GET.get('next_url')
+    next_url = request.GET.get('next')
     state = None
     if request.method == 'POST':
         username = request.POST.get('username')
