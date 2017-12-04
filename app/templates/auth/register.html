@@ -64,8 +64,7 @@
                             </h3>
                         </div>
                         {% if state %}
-                        <div style="margin-top:4rem">
-                            {% if state == "not_exist_or_password_error" %}
+                        <div class="col-md-2 col-md-offset-5" style="margin-top:4rem">
                             <div class="alert alert-warning">
                                 <a href="#" class="close" data-dismiss="alert">&times;</a>
                                 {% if state == 'success' %}
@@ -73,11 +72,9 @@
                                 {% elif state == 'repeat_error' %}
                                 <h2> 密码重复错误 </h2>
                                 {% elif state == 'empty' %}
-                                <h2> 密码不能为空 </h2>
+                                <h2> 有未填写项，请重新检查 </h2>
                                 {% elif state == 'user_exist' %}
-                                <h2> 用户已经存在 </h2>
-                                {% elif state == 'email_exist' %}
-                                <h2> 邮箱地址已经存在 </h2>
+                                <h2> 户已经存在 </h2>
                                 {% endif %}
                             </div>
                         </div>
