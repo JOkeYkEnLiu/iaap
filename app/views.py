@@ -92,6 +92,7 @@ def user_index(request):
 @login_required
 def profile(request):
     user = request.user
+    title = "IAAP | 用户资料"
     return render(request, 'user/profile.html', locals())
 
 
