@@ -83,6 +83,7 @@ def password_reset(request):
 
 @login_required
 def user_index(request):
+    active_nav = 'dashboard'
     user = request.user
     title = "IAAP | 控制面板"
     return render(request, 'user/index.html', locals())
