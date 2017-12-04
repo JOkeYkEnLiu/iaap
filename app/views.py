@@ -97,7 +97,7 @@ def user_register(request):
             elif User.objects.filter(email=email):
                 state = 'email_exist'
             else:
-                new_user = User.objects.create(username=username)
+                new_user = User.objects.create(username=username,email=email,password=password)
                 new_user.save()
                 state = 'success'
                 auth.login(request, new_user)

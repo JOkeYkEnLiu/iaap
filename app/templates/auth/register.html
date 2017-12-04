@@ -27,6 +27,7 @@
     <link href="{% static 'css/style.bundle.css' %}" rel="stylesheet" type="text/css" />
     <!--end::Base Styles -->
     <link rel="shortcut icon" href="{% static 'assets/demo/default/media/img/logo/favicon.ico' %}" />
+    <link href="https://fonts.googleapis.com/css?family=Exo+2:400,900i" rel="stylesheet">
     <style>
         #logo_text:hover {
             text-decoration: none
@@ -64,7 +65,10 @@
                         {% if state %}
                         <div style="margin-top:4rem">
                                 {% if state == 'success' %}
-                                注册成功！
+                                <div class="alert alert-error">
+                                    <button type="button" class="close" data-dismiss="alert"></button>
+                                    <h4>注册成功</h4>
+                                </div>
                                 {% elif state == 'repeat_error' %}
                                 <div class="alert alert-error">
                                     <button type="button" class="close" data-dismiss="alert"></button>
