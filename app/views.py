@@ -90,7 +90,8 @@ def user_index(request):
 
 @login_required
 def profile(request):
-    return HttpResponse("这是用户信息页")
+    user = request.user
+    return render(request, 'user/profile.html', locals())
 
 
 @login_required

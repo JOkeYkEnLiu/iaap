@@ -1,0 +1,203 @@
+{% extends "base_generic.html" %} 
+{% block body %}
+<!-- BEGIN: Subheader -->
+<div class="m-subheader ">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <h3 class="m-subheader__title ">
+                个人信息
+            </h3>
+        </div>
+        <div>
+
+        </div>
+    </div>
+</div>
+<!-- END: Subheader -->
+<div class="m-content">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="m-portlet m-portlet--full-height   m-portlet--rounded">
+                <div class="m-portlet__body">
+                    <div class="m-card-profile">
+                        <div class="m-card-profile__title m--hide">
+                            Your Profile
+                        </div>
+                        <div class="m-card-profile__pic">
+                            <div class="m-card-profile__pic-wrapper">
+                                {% load static %}
+                                <img src="{% static 'media/avatar/default.png' %}" alt="">
+                            </div>
+                        </div>
+                        <div class="m-card-profile__details">
+                            <span class="m-card-profile__name">
+                                {{user.username}}
+                            </span>
+                            <a href="" class="m-card-profile__email m-link">
+                                {{user.email}}
+                            </a>
+                        </div>
+                    </div>
+                    <ul class="m-nav m-nav--hover-bg m-portlet-fit--sides">
+                        <li class="m-nav__separator m-nav__separator--fit"></li>
+                        <li class="m-nav__section m--hide">
+                            <span class="m-nav__section-text">
+                                Section
+                            </span>
+                        </li>
+                        <li class="m-nav__item">
+                            <a href="/user/profile" class="m-nav__link">
+                                <i class="m-nav__link-icon flaticon-profile-1"></i>
+                                <span class="m-nav__link-title">
+                                    <span class="m-nav__link-wrap">
+                                        <span class="m-nav__link-text">
+                                            我的账户
+                                        </span>
+                                    </span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="m-nav__item">
+                            <a href="/user/profile/activity" class="m-nav__link">
+                                <i class="m-nav__link-icon flaticon-share"></i>
+                                <span class="m-nav__link-text">
+                                    账户活动
+                                </span>
+                            </a>
+                        </li>
+
+
+
+
+                    </ul>
+                    <div class="m-portlet__body-separator"></div>
+                    <div class="m-widget1 m-widget1--paddingless">
+                        <div class="m-widget1__item">
+                            <div class="row m-row--no-padding align-items-center">
+                                <div class="col">
+                                    <h3 class="m-widget1__title">
+                                        账户余额
+                                    </h3>
+                                    <span class="m-widget1__desc">
+                                        账户当前可用余额，可于打印时直接扣费。
+                                    </span>
+                                </div>
+                                <div class="col m--align-right">
+                                    <span class="m-widget1__number m--font-brand">
+                                        {{user.balance}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-widget1__item">
+                            <div class="row m-row--no-padding align-items-center">
+                                <div class="col">
+                                    <h3 class="m-widget1__title">
+                                        本周订单
+                                    </h3>
+                                    <span class="m-widget1__desc">
+                                        7 日内订单数量
+                                    </span>
+                                </div>
+                                <div class="col m--align-right">
+                                    <span class="m-widget1__number m--font-danger">
+                                        {{number_of_orders_in_7_days}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="m-portlet m-portlet--full-height m-portlet--tabs   m-portlet--rounded">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-tools">
+                        <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
+                            <li class="nav-item m-tabs__item">
+                                <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
+                                    <i class="flaticon-share m--hide"></i>
+                                    更新账户
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="m_user_profile_tab_1">
+                        <form class="m-form m-form--fit m-form--label-align-right">
+                            <div class="m-portlet__body">
+                                <div class="form-group m-form__group row">
+                                    <div class="col-10 ml-auto">
+                                        <h3 class="m-form__section">
+                                            个人信息
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label for="example-text-input" class="col-2 col-form-label">
+                                        全名
+                                    </label>
+                                    <div class="col-7">
+                                        <input class="form-control m-input" value="{{user.username}}" type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label for="example-text-input" class="col-2 col-form-label">
+                                        邮箱
+                                    </label>
+                                    <div class="col-7">
+                                        <input class="form-control m-input" value="{{user.email}}" type="email">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label for="example-text-input" class="col-2 col-form-label">
+                                        原密码
+                                    </label>
+                                    <div class="col-7">
+                                        <input class="form-control m-input" value="" type="password">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label for="example-text-input" class="col-2 col-form-label">
+                                        新密码（留空不改动）
+                                    </label>
+                                    <div class="col-7">
+                                        <input class="form-control m-input" value="" type="password">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label for="example-text-input" class="col-2 col-form-label">
+                                        确认新密码
+                                    </label>
+                                    <div class="col-7">
+                                        <input class="form-control m-input" value="" type="password">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-portlet__foot m-portlet__foot--fit">
+                                <div class="m-form__actions">
+                                    <div class="row">
+                                        <div class="col-2"></div>
+                                        <div class="col-7">
+                                            <button type="sumbit" class="btn btn-accent m-btn m-btn--air m-btn--custom">
+                                                保存
+                                            </button>
+                                            &nbsp;&nbsp;
+                                            <button type="reset" class="btn btn-secondary m-btn m-btn--air m-btn--custom">
+                                                取消
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane active" id="m_user_profile_tab_2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
