@@ -74,7 +74,9 @@
                                 {% elif state == 'empty' %}
                                 <h2> 有未填写项，请重新检查 </h2>
                                 {% elif state == 'user_exist' %}
-                                <h2> 户已经存在 </h2>
+                                <h2> 用户已经存在 </h2>
+                                {% elif state == 'email_exist' %}
+                                <h2> 邮箱已经存在 </h2>
                                 {% endif %}
                             </div>
                         </div>
