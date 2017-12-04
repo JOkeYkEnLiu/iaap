@@ -79,7 +79,7 @@ def user_logout(request):
     return HttpResponseRedirect('/redirect/?code=102')
 
 def user_register(request):
-    username = '用户名（用于登录）'
+    username = '用户名'
     email = '邮箱'
     password = '密码'
     repeat_password = '重复密码'
@@ -90,7 +90,7 @@ def user_register(request):
     if request.method == 'POST':
         password = request.POST.get('password')
         repeat_password = request.POST.get('repeat_password')
-        if password == '' or repeat_password == '' or password == '密码' or repeat_password == '重复密码' or username == '' or username == '用户名（用于登录）' or email == '' or email == '邮箱':
+        if password == '' or repeat_password == '' or password == '密码' or repeat_password == '重复密码' or username == '' or username == '用户名' or email == '' or email == '邮箱':
             state = 'empty'
         elif password != repeat_password:
             state = 'repeat_error'
