@@ -37,7 +37,6 @@ def redirect_url(request):
     return render(request, 'redirect.html', locals())
 
 
-
 def user_login(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect('/user/')
@@ -67,10 +66,6 @@ def user_login(request):
 
 
     return render(request, 'auth/login.html', locals())
-
-
-def about(request):
-    return HttpResponse("这是关于页面")
 
 
 @login_required
@@ -104,7 +99,11 @@ def user_register(request):
     return render(request, 'auth/register.html', locals())
 
 def password_reset(request):
-    return HttpResponse("这是密码重置页面")
+    return render(request, 'auth/password_reset.html')
+
+
+def about(request):
+    return HttpResponse("这是关于页面")
 
 
 @login_required
