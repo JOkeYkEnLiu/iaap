@@ -92,7 +92,7 @@ def user_register(request):
         elif password != repeat_password:
             state = 'repeat_error'
         else:
-            if Uzser.objects.filter(username=username):
+            if User.objects.filter(username=username):
                 state = 'user_exist'
             elif User.objects.filter(email=email):
                 state = 'email_exist'
