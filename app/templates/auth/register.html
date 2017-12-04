@@ -68,15 +68,27 @@
                             <div class="alert alert-warning">
                                 <a href="#" class="close" data-dismiss="alert">&times;</a>
                                 {% if state == 'success' %}
-                                <h2> 注册成功！ </h2>
+                                注册成功！
                                 {% elif state == 'repeat_error' %}
-                                <h2> 密码重复错误 </h2>
+                                <div class="alert alert-error">
+                                    <button type="button" class="close" data-dismiss="alert"></button>
+                                    <h4>错误!</h4>密码重复错误
+                                </div>
                                 {% elif state == 'empty' %}
-                                <h2> 有未填写项，请重新检查 </h2>
+                                <div class="alert alert-error">
+                                    <button type="button" class="close" data-dismiss="alert"></button>
+                                    <h4>错误!</h4>有未填写项，请重新检查
+                                </div>
                                 {% elif state == 'user_exist' %}
-                                <h2> 用户已经存在 </h2>
+                                <div class="alert alert-error">
+                                    <button type="button" class="close" data-dismiss="alert"></button>
+                                    <h4>错误!</h4>用户已经存在
+                                </div>
                                 {% elif state == 'email_exist' %}
-                                <h2> 邮箱已经存在 </h2>
+                                <div class="alert alert-error">
+                                    <button type="button" class="close" data-dismiss="alert"></button>
+                                    <h4>错误!</h4>邮箱已经存在
+                                </div>
                                 {% endif %}
                             </div>
                         </div>
