@@ -94,7 +94,7 @@
                                     </span>
                                 </div>
                                 <div class="col m--align-right">
-                                    <span class="m-widget1__number m--font-danger">
+                                    <span class="m-widget1__number m--font-success">
                                         <!-- {{number_of_orders_in_7_days}} -->
                                         15
                                     </span>
@@ -136,7 +136,7 @@
                                         全名
                                     </label>
                                     <div class="col-7">
-                                        <input class="form-control m-input" value="{{user.username}}" type="text">
+                                        <input class="form-control m-input" value="{{user.username}}" type="text" name="fullname">
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -144,7 +144,7 @@
                                         邮箱
                                     </label>
                                     <div class="col-7">
-                                        <input class="form-control m-input" value="{{user.email}}" type="email">
+                                        <input class="form-control m-input" value="{{user.email}}" type="email" disabled>
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -152,15 +152,15 @@
                                         原密码
                                     </label>
                                     <div class="col-7">
-                                        <input class="form-control m-input" value="" type="password">
+                                        <input class="form-control m-input" value="" type="password" name="old_password">
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
                                     <label for="example-text-input" class="col-2 col-form-label">
-                                        新密码（留空不改动）
+                                        新密码<hr>（留空不改动）
                                     </label>
                                     <div class="col-7">
-                                        <input class="form-control m-input" value="" type="password">
+                                        <input class="form-control m-input" value="" type="password" name="new_password">
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -168,7 +168,7 @@
                                         确认新密码
                                     </label>
                                     <div class="col-7">
-                                        <input class="form-control m-input" value="" type="password">
+                                        <input class="form-control m-input" value="" type="password" name="new_password_confirm">
                                     </div>
                                 </div>
                             </div>
