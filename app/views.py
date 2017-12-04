@@ -56,7 +56,7 @@ def user_login(request):
                 request.session.set_expiry(60*60*24*14)
             if user.is_active:
                 auth.login(request, user)
-                if next_url:
+                if next_url != 'None':
                     return HttpResponseRedirect('/redirect/?code=100&next=%s'%next_url)
                 return HttpResponseRedirect('/redirect/?code=100')
             else:
