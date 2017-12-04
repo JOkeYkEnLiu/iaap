@@ -43,12 +43,12 @@ def user_login(request):
         return HttpResponseRedirect('/user/')
 
     state = None
-    next_url = request.GET.get('next')
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         remember_me = request.POST.get('remember')
-
+        next_url = request.GET.get('next')
+        
         user = auth.authenticate(username=username, password=password)
 
         if user:
