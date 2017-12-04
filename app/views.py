@@ -107,3 +107,6 @@ def print_index(request):
 @login_required
 def announcement(request):
     return HttpResponse("这是公告页")
+
+def page_error(request):
+    return render_to_response('error.html')
