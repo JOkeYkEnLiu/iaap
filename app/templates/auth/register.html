@@ -63,6 +63,7 @@
                                 登录至控制面板
                             </h3>
                         </div>
+                        {% if state %}
                         <div style="margin-top:4rem">
                             {% if state == "not_exist_or_password_error" %}
                             <div class="alert alert-warning">
@@ -80,6 +81,7 @@
                                 {% endif %}
                             </div>
                         </div>
+                        {% endif %}
                         <form class="m-login__form m-form" action="/auth/login/" method="POST">
                             {% csrf_token %}
                             <div class="form-group m-form__group">

@@ -124,7 +124,21 @@ def user_index(request):
 def profile(request):
     user = request.user
     title = "IAAP | 用户资料"
-    if request.method == "POST":
+    state = None
+    if request.method == 'POST':
+        old_password = request.POST.get('old_password')
+        new_password = request.POST.get('new_password')
+        repeat_password = request.POST.get('repeat_password')
+
+        if user.check_password(old_password):
+            if not new_password:
+                state = 'empty'
+            elif new_password != repeat_password:
+                state = 'repeat_error'
+            else:
+                user.set_password(new_password)
+                user.save()
+                state = 'success'
 
     return render(request, 'user/profile.html', locals())
 
