@@ -88,6 +88,8 @@ def user_register(request):
         return HttpResponseRedirect('/user/')
     state = None
     if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
         password = request.POST.get('password')
         repeat_password = request.POST.get('repeat_password')
         if password == '' or repeat_password == '' or password == '密码' or repeat_password == '重复密码' or username == '' or username == '用户名' or email == '' or email == '邮箱':
@@ -99,8 +101,6 @@ def user_register(request):
         elif password != repeat_password:
             state = 'repeat_error'
         else:
-            username = request.POST.get('username')
-            email = request.POST.get('name')
             if Uzser.objects.filter(username=username):
                 state = 'user_exist'
             elif User.objects.filter(email=email):
