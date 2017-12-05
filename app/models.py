@@ -168,7 +168,7 @@ class PrintJobs(models.Model):
 
     # Metadata
     class Meta:
-        ordering = ["-id"]
+        ordering = ["-orderid"]
 
     # Methods
     def get_absolute_url(self):
