@@ -13,7 +13,7 @@ class LoginForm(forms.Form):
             'id': 'id_username',
             "placeholder":"用户名"
         }, ),required=True, )
-    password = forms.CharField
+    password = forms.CharField(
         widget=forms.TextInput(attrs={
             'class': 'form-control m-login__form-input--last',
             'type': 'password',
