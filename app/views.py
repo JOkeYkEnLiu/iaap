@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
 # Create your views here.
-from .models import Profile, BalanceLog, Printer, PrinterOptions, RedeemCode, User
+from .models import Profile, BalanceLog, Printer, PrinterOptions, RedeemCode, User, PrintJobs,paysAPI
 from app.pdf_page_count import getPDFPages
 from django.core.files.base import ContentFile
 import random
