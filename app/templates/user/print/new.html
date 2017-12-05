@@ -34,7 +34,7 @@
                 </div>
                 <div class="tab-content">
                     <div class="tab-pane active" id="mode_1">
-                    <form class="m-form m-form--fit m-form--label-align-right" action="/user/print/create" method="POST">
+                    <form class="m-form m-form--fit m-form--label-align-right" action="/user/print/new" method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="next_url" value="{{next_url}}">
                         <input type="hidden" name="next_url" value="{{next_url}}">
@@ -107,7 +107,7 @@
                     </form>
                     </div>
                     <div class="tab-pane" id="mode_2">
-                        <form class="m-form m-form--fit m-form--label-align-right" action="/user/print/create" method="POST">
+                        <form class="m-form m-form--fit m-form--label-align-right" action="/user/print/new" method="POST">
                             {% csrf_token %}
                             <input type="hidden" name="next_url" value="{{next_url}}">
                             <input type="hidden" name="next_url" value="{{next_url}}">
