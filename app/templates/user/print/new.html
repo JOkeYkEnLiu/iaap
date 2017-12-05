@@ -71,7 +71,7 @@
                                     </label>
                                     <div class="col-7">
                                         <!-- <input class="form-control m-input" value="¥{{user.balance}}" type="text" disabled> -->
-                                        <input class="form-control m-input" name="file" type="file" required>
+                                        {{form.filetoupload}}
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -80,9 +80,7 @@
                                     </label>
                                     <div class="col-7">
                                         <!-- <input class="form-control m-input" value="¥{{order.cost}}" type="text" disabled> -->
-                                        <select class="form-control m-input" name="pid" value="1" disabled required>
-                                            <option value="1">12F 的打印机</option>
-                                        </select>
+                                        {{form.pid}}
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -90,10 +88,7 @@
                                         双面打印
                                     </label>
                                     <div class="col-7">
-                                        <select class="form-control m-input" name="sided" value="1" required>
-                                            <option value="1">单面打印</option>
-                                            <option value="2">双面打印</option>
-                                        </select>
+                                        {{form.sided}}
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -101,14 +96,14 @@
                                         份数
                                     </label>
                                     <div class="col-7">
-                                        <input class="form-control m-input" value="1" type="number" required>
+                                        {{form.copies}}
                                     </div>
                                 </div>
                             </div>
-                            <input type="hidden" name="number_up" value="1">
-                            <input type="hidden" name="number_up_layout" value="tblr">
-                            <input type="hidden" name="media" value="A4">
-                            <input type="hidden" name="page_range" value="0">
+                            {{ form.number_up }}
+                            {{ form.number_up_layout }}
+                            {{ form.media }}
+                            {{ form.page_range }}
                             <div class="m-portlet__foot m-portlet__foot--fit">
                                 <div class="m-form__actions">
                                     <div class="row">
