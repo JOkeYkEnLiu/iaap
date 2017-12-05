@@ -3,7 +3,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Profile, BalanceLog, Printer, PrinterOptions, PrintJobs, RedeemCode, paysAPI
+from .models import Profile, BalanceLog, Printer, PrinterOptions, RedeemCode, paysAPI
 
 
 admin.site.register(Profile)
