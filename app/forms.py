@@ -67,7 +67,7 @@ class QuickNewOrderForm(forms.Form):
         attrs={'class': 'form-control m-input', }))
     pid = forms.IntegerField(widget=forms.Select(
         choices=((1, "12F 的打印机")), attrs={'class': 'form-control m-input'}))
-    sided = forms.ChoiceField(initial=1, widget=forms.Select(
+    sided = forms.IntegerField(widget=forms.Select(
         choices=((1, "单面打印"), (2, "双面打印")), attrs={'class': 'form-control m-input', }))
     number_up = forms.IntegerField(widget=forms.NumberInput(
         attrs={"type": "hidden", "value": "1"}))
