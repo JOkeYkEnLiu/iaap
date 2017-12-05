@@ -62,7 +62,7 @@
                 </div>
                 <div class="tab-content">
                     <div class="tab-pane active" id="mode_1">
-                        <form class="m-form m-form--fit m-form--label-align-right" action="/user/print/new" method="POST">
+                        <form enctype="multipart/form-data" class="m-form m-form--fit m-form--label-align-right" action="/user/print/new" method="POST">
                             {% csrf_token %}
                             <div class="m-portlet__body">
                                 <div class="form-group m-form__group row">
@@ -71,7 +71,7 @@
                                     </label>
                                     <div class="col-7">
                                         <!-- <input class="form-control m-input" value="¥{{user.balance}}" type="text" disabled> -->
-                                        <input class="form-control m-input" type="file" required>
+                                        <input class="form-control m-input" name="file" type="file" required>
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -80,7 +80,7 @@
                                     </label>
                                     <div class="col-7">
                                         <!-- <input class="form-control m-input" value="¥{{order.cost}}" type="text" disabled> -->
-                                        <select name="pid" value="1" disabled required>
+                                        <select class="form-control m-input" name="pid" value="1" disabled required>
                                             <option value="1">12F 的打印机</option>
                                         </select>
                                     </div>
@@ -90,7 +90,7 @@
                                         双面打印
                                     </label>
                                     <div class="col-7">
-                                        <select name="sided" value="1" required>
+                                        <select class="form-control m-input" name="sided" value="1" required>
                                             <option value="1">单面打印</option>
                                             <option value="2">长边装订双面打印</option>
                                             <option value="3">短边装订双面打印</option>
@@ -129,7 +129,7 @@
                         </form>
                     </div>
                     <div class="tab-pane" id="mode_2">
-                        <form class="m-form m-form--fit m-form--label-align-right" action="/user/print/new" method="POST">
+                        <form enctype="multipart/form-data" class="m-form m-form--fit m-form--label-align-right" action="/user/print/new" method="POST">
                             {% csrf_token %}
                             <input type="hidden" name="next_url" value="{{next_url}}">
                             <input type="hidden" name="next_url" value="{{next_url}}">
@@ -140,7 +140,7 @@
                                     </label>
                                     <div class="col-7">
                                         <!-- <input class="form-control m-input" value="¥{{user.balance}}" type="text" disabled> -->
-                                        <input class="form-control m-input" type="file" required>
+                                        <input class="form-control m-input" type="file" name="file" required>
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -149,7 +149,7 @@
                                     </label>
                                     <div class="col-7">
                                         <!-- <input class="form-control m-input" value="¥{{order.cost}}" type="text" disabled> -->
-                                        <select name="pid" value="1" disabled required>
+                                        <select class="form-control m-input" name="pid" value="1" disabled required>
                                             <option value="1">12F 的打印机</option>
                                         </select>
                                     </div>
@@ -159,7 +159,7 @@
                                         双面打印
                                     </label>
                                     <div class="col-7">
-                                        <select name="sided" value="1" required>
+                                        <select class="form-control m-input" name="sided" value="1" required>
                                             <option value="1">单面打印</option>
                                             <option value="2">长边装订双面打印</option>
                                             <option value="3">短边装订双面打印</option>
@@ -171,7 +171,7 @@
                                         每张页数
                                     </label>
                                     <div class="col-7">
-                                        <select name="number_up" value="1" required>
+                                        <select class="form-control m-input" name="number_up" value="1" required>
                                             <option value="1">每张 1 页</option>
                                             <option value="2">每张 2 页</option>
                                             <option value="4">每张 4 页</option>
@@ -186,7 +186,7 @@
                                         布局
                                     </label>
                                     <div class="col-7">
-                                        <select name="number_up_layout" value="1" required>
+                                        <select class="form-control m-input" name="number_up_layout" value="1" required>
                                             <option value="tblr">从上到下，从左到右</option>
                                             <option value="tbrl">从上到下，从右到左</option>
                                             <option value="btlr">从下到上，从左到右</option>
@@ -199,7 +199,7 @@
                                         介质
                                     </label>
                                     <div class="col-7">
-                                        <select name="media" value="A4" disabled required>
+                                        <select class="form-control m-input" name="media" value="A4" disabled required>
                                             <option value="A4">A4</option>
                                         </select>
                                     </div>
