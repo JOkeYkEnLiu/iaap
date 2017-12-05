@@ -173,6 +173,7 @@
                     <div class="tab-pane active" id="payment_1">
                         <form class="m-form m-form--fit m-form--label-align-right" action="/user/print/return" method="POST">
                             {% csrf_token %}
+                            <!-- <input type="hidden" name="next_url" value="{{next_url}}"> -->
                             <div class="m-portlet__body">
                                 <div class="form-group m-form__group row">
                                     <label for="example-text-input" class="col-2 col-form-label">

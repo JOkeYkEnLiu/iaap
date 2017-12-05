@@ -1,0 +1,143 @@
+{% extends "base_generic.html" %} {% block body %}
+<!-- BEGIN: Subheader -->
+<div class="m-subheader ">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <h3 class="m-subheader__title ">
+                开始打印
+            </h3>
+        </div>
+    </div>
+</div>
+<!-- END: Subheader -->
+<div class="m-content">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="m-portlet m-portlet--full-height m-portlet--tabs   m-portlet--rounded" style="height:auto">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-tools">
+                        <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
+                            <li class="nav-item m-tabs__item">
+                                <a class="nav-link m-tabs__link active" data-toggle="tab" href="#payment_1" role="tab">
+                                    <i class="flaticon-share m--hide"></i>
+                                    新建订单
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="payment_1">
+                        <form class="m-form m-form--fit m-form--label-align-right" action="/user/print/create" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="next_url" value="{{next_url}}">
+                            <input type="hidden" name="next_url" value="{{next_url}}">
+                            <div class="m-portlet__body">
+                                <div class="form-group m-form__group row">
+                                    <label for="example-text-input" class="col-2 col-form-label">
+                                        上传文件
+                                    </label>
+                                    <div class="col-7">
+                                        <!-- <input class="form-control m-input" value="¥{{user.balance}}" type="text" disabled> -->
+                                        <input class="form-control m-input" type="file">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label for="example-text-input" class="col-2 col-form-label">
+                                        双面打印
+                                    </label>
+                                    <div class="col-7">
+                                        <select name="sided">
+                                            <option value="1">单面打印</option>
+                                            <option value="2">长边装订双面打印</option>
+                                            <option value="3">短边装订双面打印</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-portlet__foot m-portlet__foot--fit">
+                                <div class="m-form__actions">
+                                    <div class="row">
+                                        <div class="col-2"></div>
+                                        <div class="col-7">
+                                            <button type="sumbit" class="btn btn-accent m-btn m-btn--air m-btn--custom">
+                                                提交
+                                            </button>
+                                            &nbsp;&nbsp;
+                                            <button type="reset" class="btn btn-secondary m-btn m-btn--air m-btn--custom">
+                                                取消
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane" id="payment_2">
+                        <form class="m-form m-form--fit m-form--label-align-right" action="https://pay.paysapi.com/" method="POST">
+                            <div class="m-portlet__body">
+                                <div class="form-group m-form__group row">
+                                    <label for="example-text-input" class="col-2 col-form-label">
+                                        账户余额
+                                    </label>
+                                    <div class="col-7">
+                                        <!-- <input class="form-control m-input" value="¥{{user.balance}}" type="text" disabled> -->
+                                        <input class="form-control m-input" value="¥20" type="text" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-portlet__foot m-portlet__foot--fit">
+                                <div class="m-form__actions">
+                                    <div class="row">
+                                        <div class="col-2"></div>
+                                        <div class="col-7">
+                                            <button type="sumbit" class="btn btn-accent m-btn m-btn--air m-btn--custom">
+                                                跳转支付
+                                            </button>
+                                            &nbsp;&nbsp;
+                                            <button type="reset" class="btn btn-secondary m-btn m-btn--air m-btn--custom">
+                                                取消
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane" id="payment_3">
+                        <form class="m-form m-form--fit m-form--label-align-right" action="https://pay.paysapi.com/" method="POST">
+                            <div class="m-portlet__body">
+                                <div class="form-group m-form__group row">
+                                    <label for="example-text-input" class="col-2 col-form-label">
+                                        账户余额
+                                    </label>
+                                    <div class="col-7">
+                                        <!-- <input class="form-control m-input" value="¥{{user.balance}}" type="text" disabled> -->
+                                        <input class="form-control m-input" value="¥20" type="text" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-portlet__foot m-portlet__foot--fit">
+                                <div class="m-form__actions">
+                                    <div class="row">
+                                        <div class="col-2"></div>
+                                        <div class="col-7">
+                                            <button type="sumbit" class="btn btn-accent m-btn m-btn--air m-btn--custom">
+                                                跳转支付
+                                            </button>
+                                            &nbsp;&nbsp;
+                                            <button type="reset" class="btn btn-secondary m-btn m-btn--air m-btn--custom">
+                                                取消
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
