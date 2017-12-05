@@ -24,6 +24,7 @@ urlpatterns = [
                 # url(r'^user/pay/online', views.online_pay, name='online_pay'),
                 # url(r'^user/print/$', views.print_index, name='print_index'),
                 # url(r'^user/print/new', views.new_print_job, name='new_print_job'),
+                url(r'^user/print/pay', views.pay_order, name='pay_order'),
                 # url(r'^user/printer/$', views.view_printers, name='view_printers'),
                 # url(r'^user/ticket/$', views.ticket, name='ticket'),
                 # url(r'^user/ticket/new', views.new_ticket, name='new_ticket'),

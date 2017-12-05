@@ -155,3 +155,6 @@ def announcement(request):
 
 def page_error(request):
     return render(request, 'error.html')
+
+def pay_order(request):
+    return render(request, 'user/print/pay.html', locals())
