@@ -36,7 +36,7 @@ class RegisterForm(forms.Form):
         widget=forms.TextInput(attrs={
             'class': 'form-control m-input',
             'name': 'username',
-            "placeholder"="用户名"
+            "placeholder":"用户名"
         },required=True,),
     )
     email = forms.CharField(
@@ -44,14 +44,14 @@ class RegisterForm(forms.Form):
             'class': 'form-control m-input',
             'name': 'email',
             "type":"email",
-            "placeholder"="邮箱"
+            "placeholder":"邮箱"
         },required=True,),
     )
     password = forms.CharField(
         widget=forms.TextInput(attrs={
             'class': 'form-control m-input',
             'name': 'password',
-            "placeholder"="密码"
+            "placeholder":"密码"
         },required=True,),
     )
     re_password = forms.CharField(
@@ -59,7 +59,7 @@ class RegisterForm(forms.Form):
             'class': 'form-control m-input m-login__form-input--last',
             'type': 'password',
             'name': 'repeat_password',
-            "placeholder"="确认密码"
+            "placeholder":"确认密码"
         }, required=True,),
     )
 
