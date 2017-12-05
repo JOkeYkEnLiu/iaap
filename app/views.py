@@ -7,9 +7,14 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidde
 from django import forms
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+
 # Create your views here.
 from .models import Profile, BalanceLog, Printer, PrinterOptions, PrintJobs, RedeemCode, User
-
+from app.pdf_page_count import getPDFPages
+from django.core.files.base import ContentFile
+import random
+import string
 
 def index(request):
     return HttpResponse("首页")
@@ -156,15 +161,38 @@ def announcement(request):
 def page_error(request):
     return render(request, 'error.html')
 
+
+@login_required
 def new_print_job(request):
     title = "IAAP | 开始打印" 
     active_nav = 'printjobs'
     if request.method == 'POST':
-        pass
+        t = datetime.datetime.now()
+        f = request.FILES.get("file")
+        file_content = ContentFile(f.read())
+        pid = request.POST.get("pid")
+        uid = request.user.id
+        verify = ''.join(random.sample(string.ascii_letters + string.digits, 8))
+        sided = request.POST.get("sided")
+        number_up = request.POST.get("number_up")
+        number_up_layout = request.POST.get("number_up_layout")
+        media = request.POST.get("media")
+        page_ranges = request.POST.get("page_range")
+        copies = request.POST.get("copies")
+        created_time = datetime.datetime.now()
+        order = PrintJobs.objects.create()
+        status = 1
+        order = PrintJobs.objects.create(pid=pid,uid=uid,verify=verify,sided=sided,number_up=number_up,number_up_layout=number_up_layout,media=media,copies=copies,page_ranges=page_ranges,created_time=created_time)
+        order.upload.save(f.name,file_content)
+        file_pages = getPDFPages(order.upload.path)
+        order.file_pages=file_pages
+        order.cost = file_pages * 0.5 * 1/sided
+
     return render(request, 'user/print/new.html', locals())
 
 
 def pay_order(request):
     if request.method == 'POST':
         pass
+
     return render(request, 'user/print/pay.html', locals())

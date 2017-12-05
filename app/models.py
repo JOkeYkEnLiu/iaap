@@ -39,7 +39,7 @@ class BalanceLog(models.Model):
     # Fields
     uid = models.IntegerField(help_text="用户")
     operator = models.IntegerField(help_text="操作者")
-    operation_time = models.TimeField(help_text="操作时间")
+    operation_time = models.DateTimeField(help_text="操作时间")
     operation_type = models.IntegerField(choices=OPERATION_TYPES,default="变动类型")
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, help_text="初始余额")
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, help_text="变动余额")
@@ -155,8 +155,8 @@ class PrintJobs(models.Model):
     orderid = models.IntegerField(primary_key=True)
     pid = models.IntegerField(help_text="所选打印机")
     uid = models.IntegerField(help_text="用户")
-    upload = models.FileField(upload_to='uploads/%Y/%m/%d/', default="文件")
-    file_pages = models.IntegerField(help_text="文件页数")
+    upload = models.FileField(upload_to='uploads/%Y/%m/%d/', default="文件",blank=True)
+    file_pages = models.IntegerField(help_text="文件页数", blank=True)
     verify = models.CharField(max_length=128, help_text="校验码")
     sided = models.IntegerField(choices=SIDED_CHOICES, help_text='双面打印选项')
     number_up = models.IntegerField(help_text="每张页数", default=1)
@@ -164,12 +164,13 @@ class PrintJobs(models.Model):
     media = models.CharField(max_length=128, help_text="介质")
     page_ranges = models.CharField(max_length=128, help_text="页面范围")
     copies = models.IntegerField(help_text="份数", default=1)
-    print_pages = models.IntegerField(help_text="实际打印张数")
-    cost = models.DecimalField(max_digits=10, decimal_places=2, help_text="花费")
-    payment = models.IntegerField(choices=PAYMENT_CHOICES, help_text="支付方式")
-    created_time = models.TimeField(help_text="任务创建时间")
+    print_pages = models.IntegerField(help_text="实际打印张数", blank=True)
+    cost = models.DecimalField(
+        max_digits=10, decimal_places=2, help_text="花费", blank=True)
+    payment = models.IntegerField(choices=PAYMENT_CHOICES, help_text="支付方式" blank=True)
+    created_time = models.DateTimeField(help_text="任务创建时间")
     status = models.IntegerField(choices=STATUS_CHOICES, help_text="任务状态")
-    printed_time = models.TimeField(help_text="任务打印时间（可选）", blank=True, null=True)
+    printed_time = models.DateTimeField(help_text="任务打印时间（可选）", blank=True, null=True)
 
 
     # Metadata
@@ -210,10 +211,10 @@ class RedeemCode(models.Model):
     code = models.CharField(max_length=128, help_text="兑换码")
     amount = models.DecimalField(max_digits=10, decimal_places=2, help_text="金额")
     created_by = models.IntegerField(help_text="创建人")
-    created_time = models.TimeField(help_text="创建时间")
+    created_time = models.DateTimeField(help_text="创建时间")
     is_used = models.BooleanField(help_text="是否使用?")
     used_by = models.IntegerField(help_text="使用者（可选）", blank=True, null=True)
-    used_time = models.TimeField(help_text="使用时间（可选）", blank=True, null=True)
+    used_time = models.DateTimeField(help_text="使用时间（可选）", blank=True, null=True)
 
     # Metadata
     class Meta:
