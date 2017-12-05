@@ -185,7 +185,7 @@ class paysAPI(models.Model):
         (1, '支付宝'),
         (2,'微信支付'),
     )
-    orderid = OneToOneField(PrintJobs)
+    orderid = models.OneToOneField(PrintJobs)
     uid = models.IntegerField(help_text="用户")
     price = models.DecimalField(
         max_digits=10, decimal_places=2, help_text="价格")
