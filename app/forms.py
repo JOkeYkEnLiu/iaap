@@ -65,8 +65,8 @@ class RegisterForm(forms.Form):
 
 class QuickNewOrderForm(forms.Form):
     filetoupload = forms.FileField(label='fileToUpload', widget=forms.FileInput(attrs={'class': 'form-control m-input', }))
-    pid = forms.ChoiceField(initial=1, widget=forms.Select(choices=(("1": "12F 的打印机")), attrs={'class': 'form-control m-input'})
-    sided = forms.ChoiceField(initial=1, widget=forms.Select(choices=(("1": "单面打印"),("2","双面打印")), attrs={'class': 'form-control m-input', })
+    pid = forms.ChoiceField(initial=1, widget=forms.Select(choices=((1,"12F 的打印机")), attrs={'class': 'form-control m-input'})
+    sided = forms.ChoiceField(initial=1, widget=forms.Select(choices=((1,"单面打印"),(2,"双面打印")), attrs={'class': 'form-control m-input', })
     number_up=forms.IntegerField(widget=forms.NumberInput(attrs={"type"="hidden","value"="1"}))
     number_up_layout=forms.CharField(widget=forms.TextInput(attrs={"type"="hidden", "value"="tblr"}))
     media=forms.CharField(widget=forms.NumberInput(attrs={"type"="hidden", "value"="A4"}))
