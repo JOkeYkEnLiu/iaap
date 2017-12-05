@@ -157,6 +157,9 @@ def page_error(request):
     return render(request, 'error.html')
 
 def new_print_job(request):
+    title = "IAAP | 开始打印"
+    if request.method == 'POST':
+        pass
     return render(request, 'user/print/new.html', locals())
 
 
