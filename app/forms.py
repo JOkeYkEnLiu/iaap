@@ -70,5 +70,5 @@ class QuickNewOrderForm(forms.Form):
     number_up=forms.IntegerField(widget=forms.NumberInput(attrs={"type":"hidden","value":"1"}))
     number_up_layout=forms.CharField(widget=forms.TextInput(attrs={"type":"hidden", "value":"tblr"}))
     media=forms.CharField(widget=forms.NumberInput(attrs={"type":"hidden", "value":"A4"}))
-    page_ranges=forms.CharField()
-    copies=forms.IntegerField(min_value=1, widget=forms.NumberInput('class': 'form-control m-input', "type":"number","value"=1 }))
+    page_ranges = forms.CharField((attrs={"type": "hidden", "value": ""}))
+    copies = forms.IntegerField(min_value=1, widget=forms.NumberInput(attrs={'class': 'form-control m-input', "type": "number", "value"=1}))
