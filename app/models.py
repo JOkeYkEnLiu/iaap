@@ -211,7 +211,7 @@ class RedeemCode(models.Model):
 
     # Metadata
     class Meta:
-        ordering = ["-id"]
+        ordering = ["-created_time"]
 
     # Methods
     def get_absolute_url(self):
