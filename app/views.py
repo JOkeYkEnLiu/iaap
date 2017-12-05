@@ -165,7 +165,7 @@ def page_error(request):
 
 @login_required
 def new_print_job(request):
-    QuickNewOrderForm()
+    QuickForm = QuickNewOrderForm()
     title = "IAAP | 开始打印" 
     active_nav = 'printjobs'
     # if request.method == 'POST':
