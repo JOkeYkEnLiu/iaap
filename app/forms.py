@@ -11,7 +11,7 @@ class LoginForm(forms.Form):
             'class': 'form-control m-input',
             'name': 'username',
             'id': 'id_username',
-            "placeholder"="用户名"
+            "placeholder":"用户名"
         }, required=True,)
     )
     password = forms.CharField(
@@ -19,7 +19,7 @@ class LoginForm(forms.Form):
             'class': 'form-control m-login__form-input--last',
             'type': 'password',
             'name': 'password',
-            "placeholder"="密码",
+            "placeholder":"密码",
         }, required=True,),
     )
     remember = forms.BooleanField(
