@@ -39,6 +39,11 @@
     <!--end::Page Vendors -->
     <link href="{% static 'css/vendors.bundle.css' %}" rel="stylesheet" type="text/css" />
     <link href="{% static 'css/style.bundle.css' %}" rel="stylesheet" type="text/css" />
+    <style>
+        *, *::before, *::after {
+            box-sizing: unset;
+        }
+    </style>
     <!--end::Base Styles -->
     <link rel="shortcut icon" href="{% static '/media/img/logo/favicon.ico' %}" />
 </head>
@@ -260,7 +265,8 @@
                                             </span>
                                         </a>
                                     </li>
-                                    <li class="m-menu__item {% if active_nav == 'printjobs' %}m-menu__item--active{% endif%} m-menu__item--submenu m-menu__item--rel" data-menu-submenu-toggle="click" aria-haspopup="true">
+                                    <li class="m-menu__item {% if active_nav == 'printjobs' %}m-menu__item--active{% endif%} m-menu__item--submenu m-menu__item--rel"
+                                        data-menu-submenu-toggle="click" aria-haspopup="true">
                                         <a href="/user/print" class="m-menu__link m-menu__toggle">
                                             <span class="m-menu__item-here"></span>
                                             <span class="m-menu__link-text">
@@ -295,7 +301,8 @@
                                             </ul>
                                         </div>
                                     </li>
-                                    <li class="m-menu__item {% if active_nav == 'pay' %}m-menu__item--active{% endif%}  m-menu__item--submenu m-menu__item--rel" data-menu-submenu-toggle="click" aria-haspopup="true">
+                                    <li class="m-menu__item {% if active_nav == 'pay' %}m-menu__item--active{% endif%}  m-menu__item--submenu m-menu__item--rel"
+                                        data-menu-submenu-toggle="click" aria-haspopup="true">
                                         <a href="/user/pay" class="m-menu__link m-menu__toggle">
                                             <span class="m-menu__item-here"></span>
                                             <span class="m-menu__link-text">
@@ -338,7 +345,8 @@
                                             </ul>
                                         </div>
                                     </li>
-                                    <li class="m-menu__item {% if active_nav == 'ticket' %}m-menu__item--active{% endif%}  m-menu__item--submenu m-menu__item--rel" data-menu-submenu-toggle="click" aria-haspopup="true">
+                                    <li class="m-menu__item {% if active_nav == 'ticket' %}m-menu__item--active{% endif%}  m-menu__item--submenu m-menu__item--rel"
+                                        data-menu-submenu-toggle="click" aria-haspopup="true">
                                         <a href="/user/ticket" class="m-menu__link m-menu__toggle">
                                             <span class="m-menu__item-here"></span>
                                             <span class="m-menu__link-text">

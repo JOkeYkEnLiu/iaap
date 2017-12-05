@@ -145,7 +145,12 @@ class PrintJobs(models.Model):
         (2, 'paysAPI'),
         (99, '我是管理员'),
     )
-
+    NUMBER_UP_LAYOUT_CHOICES = (
+        ('tblr','从上到下，从左到右'),
+        ('tbrl', '从上到下，从右到左'),
+        ('btlr', '从下到上，从左到右'),
+        ('btrl', '从下到上，从右到左'),
+    )
     # Fields
     orderid = models.IntegerField(primary_key=True)
     pid = models.IntegerField(help_text="所选打印机")
@@ -155,7 +160,8 @@ class PrintJobs(models.Model):
     verify = models.CharField(max_length=128, help_text="校验码")
     sided = models.IntegerField(choices=SIDED_CHOICES, help_text='双面打印选项')
     number_up = models.IntegerField(help_text="每张页数", default=1)
-    number_up_layout = models.CharField(max_length=128, help_text="介质")
+    number_up_layout = models.CharField(choices=NUMBER_UP_LAYOUT_CHOICES, help_text="布局")
+    media = models.CharField(max_length=128, help_text="介质")
     page_ranges = models.CharField(max_length=128, help_text="页面范围")
     copies = models.IntegerField(help_text="份数", default=1)
     print_pages = models.IntegerField(help_text="实际打印张数")
