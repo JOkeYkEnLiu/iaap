@@ -157,7 +157,6 @@ def page_error(request):
     return render(request, 'error.html')
 
 def new_print_job(request):
-    
     return render(request, 'user/print/new.html', locals())
 
 
