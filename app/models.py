@@ -142,11 +142,12 @@ class PrintJobs(models.Model):
 
     PAYMENT_CHOICES = (
         (1, '余额支付'),
-        (2, '线上支付'),
+        (2, 'paysAPI'),
         (99, '我是管理员'),
     )
 
     # Fields
+    orderid = models.IntegerField(primary_key=True)
     pid = models.IntegerField(help_text="所选打印机")
     uid = models.IntegerField(help_text="用户")
     upload = models.FileField(upload_to='uploads/%Y/%m/%d/', default="文件")
@@ -176,6 +177,23 @@ class PrintJobs(models.Model):
     def __str__(self):
         return "%s 创建的打印 %s 的任务"%(User.objects.get(pk=self.uid).username, self.upload)
 
+class paysAPI(models.Model):
+    """
+    paysAPI 调用日志模型
+    """
+    TYPE_CHOICES = (
+        (1, '支付宝'),
+        (2,'微信支付'),
+    )
+    orderid = OneToOneField(PrintJobs)
+    uid = models.IntegerField(help_text="用户")
+    price = models.DecimalField(
+        max_digits=10, decimal_places=2, help_text="价格")
+    realprice = models.DecimalField(
+        max_digits=10, decimal_places=2, help_text="实际价格")
+    istype = models.IntegerField(choices=TYPE_CHOICES, help_text='支付渠道')
+    paysapi_id = models.TextField(
+        help_text='paysAPI 订单号', blank=True, null=True)
 
 class RedeemCode(models.Model):
     """
