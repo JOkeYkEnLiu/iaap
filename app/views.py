@@ -162,5 +162,5 @@ def new_print_job(request):
 
 def pay_order(request):
     if request.method == 'POST':
-
+        pass
     return render(request, 'user/print/pay.html', locals())
