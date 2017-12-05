@@ -12,15 +12,15 @@ class LoginForm(forms.Form):
             'name': 'username',
             'id': 'id_username',
             "placeholder":"用户名"
-        }, required=True,)
-    )
+        }, )
+required=True,    )
     password = forms.CharField(
         widget=forms.TextInput(attrs={
             'class': 'form-control m-login__form-input--last',
             'type': 'password',
             'name': 'password',
             "placeholder":"密码",
-        }, required=True,),
+        }, ),required=True,
     )
     remember = forms.BooleanField(
         widget=forms.CheckboxInput(attrs={
@@ -37,7 +37,7 @@ class RegisterForm(forms.Form):
             'class': 'form-control m-input',
             'name': 'username',
             "placeholder":"用户名"
-        },required=True,),
+        },),required=True,
     )
     email = forms.CharField(
         widget=forms.TextInput(attrs={
@@ -45,14 +45,14 @@ class RegisterForm(forms.Form):
             'name': 'email',
             "type":"email",
             "placeholder":"邮箱"
-        },required=True,),
+        },),required=True,
     )
     password = forms.CharField(
         widget=forms.TextInput(attrs={
             'class': 'form-control m-input',
             'name': 'password',
             "placeholder":"密码"
-        },required=True,),
+        },),required=True,
     )
     re_password = forms.CharField(
         widget=forms.TextInput(attrs={
@@ -60,7 +60,7 @@ class RegisterForm(forms.Form):
             'type': 'password',
             'name': 'repeat_password',
             "placeholder":"确认密码"
-        }, required=True,),
+        }, ),required=True,
     )
 
 class QuickNewOrderForm(forms.Form):
