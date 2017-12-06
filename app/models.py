@@ -167,8 +167,8 @@ class PrintJobs(models.Model):
     number_up = models.IntegerField(help_text="每张页数", default=1,)
     number_up_layout = models.CharField(max_length=128, choices=NUMBER_UP_LAYOUT_CHOICES, help_text="布局")
     media = models.CharField(max_length=128, help_text="介质",
-    page_ranges = models.CharField()
-        max_length=128, help_text="页面范围", blank=True)
+    page_ranges = models.CharField(
+        max_length=128, help_text="页面范围", blank=True))
     copies = models.IntegerField(help_text="份数", default=1)
     print_pages = models.IntegerField(help_text="实际打印张数", blank=True)
     cost = models.DecimalField(
