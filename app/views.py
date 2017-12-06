@@ -173,8 +173,8 @@ def new_print_job(request):
             order = form.save(commit=False)
             order.uid = request.user.id
             order.verify = ''.join(random.sample(string.ascii_letters + string.digits, 8))
-            prder.created_time = datetime.datetime.now()
-            prder.status = 1
+            order.created_time = datetime.datetime.now()
+            order.status = 1
             order.file_pages = getPDFPages(order.upload.path)
             order.cost = 1
             order.save()
