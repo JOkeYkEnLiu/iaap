@@ -209,7 +209,8 @@ def pay_order(request):
 def print_return(request):
 
     if request.method == "POST":
-        orderid = request.POST.get['orderid']
+        orderid = request.POST.get('orderid')
+        verify = request.POST.get('verify')
         if verify == PrintJobs.objects.get(orderid=orderid).verify:
             doPrint(order)
             return HttpResponse("打印成功")
