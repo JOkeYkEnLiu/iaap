@@ -15,7 +15,7 @@ class PdfStorage(FileSystemStorage):
         import os
         import time
         import random
-    # 文件扩展名
+        # 文件扩展名
         ext = os.path.splitext(name)[1]
         # 文件目录
         d = os.path.dirname(name)

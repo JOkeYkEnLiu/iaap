@@ -160,8 +160,7 @@ class PrintJobs(models.Model):
     pid = models.IntegerField(
         choices=PID_CHOICES, help_text="所选打印机",)
     uid = models.IntegerField(help_text="用户",)
-    upload = models.FileField(upload_to='uploads/', default="文件", storage=PdfStorage())
-    file_name = models.CharField(max_length=128,help_text="文件名", blank=True)
+    upload = models.FileField(upload_to='uploads/d%Y/%m/%/', default="文件")
     file_pages = models.IntegerField(help_text="文件页数",)
     verify = models.CharField(max_length=128, help_text="校验码",)
     sided = models.IntegerField(
