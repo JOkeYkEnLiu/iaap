@@ -66,6 +66,7 @@ class RegisterForm(forms.Form):
 class QuickNewOrderForm(forms.ModelForm):
     class Meta:
         model = PrintJobs
+        fields=['upload','pid','sided','number_up','number_up_layout','media','page_ranges','copies']
 
     def __init__(self, *args, **kwargs):
 
