@@ -173,7 +173,7 @@ class PrintJobs(models.Model):
     print_pages = models.IntegerField(
         help_text="实际打印张数", blank=True, null=True)
     cost = models.DecimalField(
-        max_digits=10, decimal_places=2, help_text="花费", blank=True)
+        max_digits=10, decimal_places=2, help_text="花费", blank=True,null=True)
     payment = models.IntegerField(
         choices=PAYMENT_CHOICES, help_text="支付方式", blank=True, null=True)
     created_time = models.DateTimeField(help_text="任务创建时间")
