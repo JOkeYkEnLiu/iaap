@@ -192,7 +192,16 @@ def new_print_job(request):
 
 
 def pay_order(request):
-    if request.method == 'POST':
-        pass
+    if request.GET.get('orderid'):
+        order = PrintJobs.objects.get(orderid=orderid)
+        user = request.user
+        if order.sided == 1:
+            sided = "单面打印"
+        elif order.sided >1 :
+            sided = "双面打印"
+        if order.pid == 1:
+            printer = "12F 的打印机"
+    else:
+        return HttpResponseRedirect('/user/print/new')
 
     return render(request, 'user/print/pay.html', locals())

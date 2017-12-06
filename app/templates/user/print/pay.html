@@ -25,8 +25,7 @@
                                 </div>
                                 <div class="col m--align-right">
                                     <span class="m-widget1__number m--font-brand">
-                                        <!-- {{order.orderid}} -->
-                                        201700000000
+                                        {{order.orderid}}
                                     </span>
                                 </div>
                             </div>
@@ -40,8 +39,7 @@
                                 </div>
                                 <div class="col m--align-right">
                                     <span class="m-widget1__number m--font-brand">
-                                        <!-- {{order.printer}} -->
-                                        12F 的打印机
+                                        {{printer}}
                                     </span>
                                 </div>
                             </div>
@@ -55,8 +53,7 @@
                                 </div>
                                 <div class="col m--align-right">
                                     <span class="m-widget1__number m--font-brand">
-                                        <!-- {{order.filename}} -->
-                                        test.pdf
+                                        {{order.upload.name}}
                                     </span>
                                 </div>
                             </div>
@@ -70,8 +67,7 @@
                                 </div>
                                 <div class="col m--align-right">
                                     <span class="m-widget1__number m--font-brand">
-                                        <!-- {{order.pages}} -->
-                                        单面打印
+                                        {{sided}}
                                     </span>
                                 </div>
                             </div>
@@ -85,8 +81,7 @@
                                 </div>
                                 <div class="col m--align-right">
                                     <span class="m-widget1__number m--font-brand">
-                                        <!-- {{order.pages}} -->
-                                        1
+                                        {{order.copies}}
                                     </span>
                                 </div>
                             </div>
@@ -100,8 +95,7 @@
                                 </div>
                                 <div class="col m--align-right">
                                     <span class="m-widget1__number m--font-brand">
-                                        <!-- {{order.pages}} -->
-                                        10
+                                        {{print_pages}}
                                     </span>
                                 </div>
                             </div>
@@ -115,9 +109,7 @@
                                 </div>
                                 <div class="col m--align-right">
                                     <span class="m-widget1__number m--font-brand">
-                                        <!-- {{order.pages}} -->
-                                        2017-12-01 12:00
-                                    </span>
+                                        {{order.created_time}}                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -133,8 +125,7 @@
                                 </div>
                                 <div class="col m--align-right">
                                     <span class="m-widget1__number m--font-success">
-                                        <!-- {{order.cost}} -->
-                                        ¥1.5
+                                        {{order.cost}}
                                     </span>
                                 </div>
                             </div>
@@ -180,8 +171,7 @@
                                         账户余额
                                     </label>
                                     <div class="col-7">
-                                        <!-- <input class="form-control m-input" value="¥{{user.balance}}" type="text" disabled> -->
-                                        <input class="form-control m-input" value="¥20" type="text" disabled>
+                                        <input class="form-control m-input" value="¥{{user.profile.balance}}" type="text" disabled>
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -189,8 +179,7 @@
                                         扣款金额
                                     </label>
                                     <div class="col-7">
-                                        <!-- <input class="form-control m-input" value="¥{{order.cost}}" type="text" disabled> -->
-                                        <input class="form-control m-input" value="¥1.5" type="text" disabled>
+                                        <input class="form-control m-input" value="¥{{order.cost}}" type="text" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -220,8 +209,8 @@
                                         账户余额
                                     </label>
                                     <div class="col-7">
-                                        <!-- <input class="form-control m-input" value="¥{{user.balance}}" type="text" disabled> -->
-                                        <input class="form-control m-input" value="¥20" type="text" disabled>
+                                        <input class="form-control m-input" value="¥{{user.profile.balance}}" type="text" disabled>
+                                        <!-- <input class="form-control m-input" value="¥20" type="text" disabled> -->
                                     </div>
                                 </div>
                             </div>
@@ -251,8 +240,8 @@
                                         账户余额
                                     </label>
                                     <div class="col-7">
-                                        <!-- <input class="form-control m-input" value="¥{{user.balance}}" type="text" disabled> -->
-                                        <input class="form-control m-input" value="¥20" type="text" disabled>
+                                        <input class="form-control m-input" value="¥{{user.profile.balance}}" type="text" disabled>
+                                        <!-- <input class="form-control m-input" value="¥20" type="text" disabled> -->
                                     </div>
                                 </div>
                             </div>
