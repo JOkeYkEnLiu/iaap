@@ -180,7 +180,7 @@ def new_print_job(request):
             order.cost = 1
             order.save()
     else:
-        form = QuickNewOrderForm()
+        form = QuickNewOrderForm(initial={"pid":1,"sided":1})
     return render(request, 'user/print/new.html', locals())
 
 
