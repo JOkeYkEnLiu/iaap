@@ -212,9 +212,12 @@ def print_return(request):
         orderid = request.POST.get('orderid')
         verify = request.POST.get('verify')
         if verify == PrintJobs.objects.get(orderid=orderid).verify:
-            order = PrintJobs.objects.get(orderid=orderid)
-            doPrint(order)
-            return HttpResponse("打印成功")
+            if order.status == 1:
+                order = PrintJobs.objects.get(orderid=orderid)
+                doPrint(order)
+                return HttpResponse("打印成功")
+            else:
+                return HttpResponseRedirect('/user/print/new?orderid=%d'%orderid)
         else:
             return HttpResponseRedirect('/user/print/new')
     else:

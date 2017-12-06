@@ -41,9 +41,9 @@ class BalanceLog(models.Model):
     operator = models.IntegerField(help_text="操作者")
     operation_time = models.DateTimeField(help_text="操作时间")
     operation_type = models.IntegerField(choices=OPERATION_TYPES,default="变动类型")
-    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, help_text="初始余额")
-    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, help_text="变动余额")
-    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, help_text="结束余额")
+    balance_initial = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, help_text="初始余额")
+    balance_change = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, help_text="变动余额")
+    balance_final = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, help_text="结束余额")
 
     # Metadata
 

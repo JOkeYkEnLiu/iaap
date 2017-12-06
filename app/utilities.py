@@ -1,5 +1,6 @@
 from .models import Profile, BalanceLog, Printer, PrinterOptions, RedeemCode, User, PrintJobs, paysAPI
 import math
+import os, datetime
 
 def getCost(order):
     pid = order.pid
@@ -19,7 +20,14 @@ def getCost(order):
     return [print_page,cost]
 
 def afterPrint(order):
-    pass
+    order.status = 1
+    user = user.objects.get(id=order.uid)
+    order.printed_time = datetime.datetime.now()
+    balance = BalanceLog()
+    balance.create(uid=order.uid,operator=order.uid,operation_time=order.printed_time,operation_type=0,balance_initial=user.profile.balance,balance_change=order.cost,balance_final=user.profile.balance-order.cost)
+    balance.save()
+    user.profile.balance = balance.balance_final
+    user.save()
 
 def doPrint(order):
     pid = order.pid
@@ -45,6 +53,6 @@ def doPrint(order):
         run = run + " " + printer.page_ranges + " " + '"' + order.page_ranges + '"'
     run = run + " " +printer.copies + " " + str(order.copies)
     run = run + " " + order.upload.path
-    print("path: %s"%order.upload.path)
+    # os.system(run)
     print(run)
     afterPrint(order)
