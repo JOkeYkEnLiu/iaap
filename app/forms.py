@@ -62,20 +62,26 @@ class RegisterForm(forms.Form):
         }, ),required=True,
     )
 
-class QuickNewOrderForm(forms.Form):
-    filetoupload = forms.FileField(label='fileToUpload', widget=forms.FileInput(
-        attrs={'class': 'form-control m-input', }))
-    pid = forms.IntegerField(widget=forms.Select(
-        choices=[(1, "12F 的打印机")], attrs={'class': 'form-control m-input'}))
-    sided = forms.IntegerField(widget=forms.Select(
-        choices=[(1, "单面打印"), (2, "双面打印")], attrs={'class': 'form-control m-input', }))
-    number_up = forms.IntegerField(widget=forms.NumberInput(
-        attrs={"type": "hidden", "value": "1"}))
-    number_up_layout = forms.CharField(widget=forms.TextInput(
-        attrs={"type": "hidden", "value": "tblr"}))
-    media = forms.CharField(widget=forms.NumberInput(
-        attrs={"type": "hidden", "value": "A4"}))
-    page_ranges = forms.CharField(widget=forms.TextInput(
-        attrs={"type": "hidden", "value": ""}))
-    copies = forms.IntegerField(min_value=1, widget=forms.NumberInput(
-        attrs={'class': 'form-control m-input', "type": "number", "value": 1}))
+class QuickNewOrderForm(forms.ModelForm):
+    class Meta:
+        model = PrintJobs
+
+    def __init__(self, *args, **kwargs):
+
+        self.fields['upload'].widget.attrs['class'='form-control m-input'
+        self.fields['pid'].widget.attrs['class']='form-control m-input'
+        self.fields['sided'].choices = [(1, "单面打印"), (2, "双面打印")]
+        self.fields['sided'].attrs['class']='form-control m-input'
+    
+        self.fields['number_up'].attrs["type"] = "hidden"
+        self.fields['number_up'].attrs["value"]= "1"
+        self.fields['number_up_layout'].attrs["type"] = "hidden"
+        self.fields['number_up_layout'].attrs["value"]= "tblr"
+        self.fields['media'].attrs["type"]= "hidden"
+        self.fields['media'].attrs["value"] = "A4"
+        self.fields['page_ranges'].attrs["type"]= "hidden"
+        self.fields['page_ranges'].attrs["value"] = ""
+
+        self.fields['copies'].attrs['class']='form-control m-input'
+        self.fields["copies"].attrs["type"]="number"
+        self.fields["copies"].attrs["value"]=1
