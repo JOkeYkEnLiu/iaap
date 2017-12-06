@@ -212,6 +212,7 @@ def print_return(request):
         orderid = request.POST.get('orderid')
         verify = request.POST.get('verify')
         if verify == PrintJobs.objects.get(orderid=orderid).verify:
+            order = PrintJobs.objects.get(orderid=request.GET.get('orderid'))
             if order.status == 1:
                 order = PrintJobs.objects.get(orderid=orderid)
                 doPrint(order)
