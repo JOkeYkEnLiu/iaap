@@ -175,7 +175,8 @@ def new_print_job(request):
             order.verify = ''.join(random.sample(string.ascii_letters + string.digits, 8))
             order.created_time = datetime.datetime.now()
             order.status = 1
-            # order.file_pages = getPDFPages(order.upload.path)
+            order.save()
+            order.file_pages = getPDFPages(order.upload.path)
             order.cost = 1
             order.save()
     else:
