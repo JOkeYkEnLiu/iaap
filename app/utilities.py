@@ -45,5 +45,6 @@ def doPrint(order):
         run = run + " " + printer.page_ranges + " " + '"' + order.page_ranges + '"'
     run = run + " " +printer.copies + " " + str(order.copies)
     run = run + " " + order.upload.path
+    print("path: %s",%order.upload.path)
     print(run)
     afterPrint(order)
