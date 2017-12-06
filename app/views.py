@@ -178,7 +178,7 @@ def new_print_job(request):
             order.created_time = datetime.datetime.now()
             order.status = 1
             order.save()
-            file_page = getPDFPages(order.upload.path)
+            order.file_page = getPDFPages(order.upload.path)
             order.save()
             cost=getCost(order)
             order.print_pages=cost[0]
