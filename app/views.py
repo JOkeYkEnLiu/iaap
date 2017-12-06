@@ -193,7 +193,7 @@ def new_print_job(request):
 
 def pay_order(request):
     if request.GET.get('orderid'):
-        order = PrintJobs.objects.get(orderid=orderid)
+        order = PrintJobs.objects.get(orderid=equest.GET.get('orderid'))
         user = request.user
         if order.sided == 1:
             sided = "单面打印"
