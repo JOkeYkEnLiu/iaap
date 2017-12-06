@@ -69,8 +69,8 @@ class QuickNewOrderForm(forms.ModelForm):
         fields=['upload','pid','sided','number_up','number_up_layout','media','page_ranges','copies']
         widgets = {
             'upload': forms.FileInput(attrs={'class': 'form-control m-input', })
-            'sided': forms.Select(choices=((1, "单面打印"), (2, "双面打印")), attrs={'class': 'form-control m-input'})
             "pid": forms.Select(choices=((1, "12F 的打印机")), attrs={'class': 'form-control m-input'})
+            'sided': forms.Select(choices=((1, "单面打印"), (2, "双面打印")), attrs={'class': 'form-control m-input'})
             "number_up": forms.NumberInput(attrs={"type": "hidden", "value": 1})
             "number_up_layout": forms.TextInput(attrs = {"type": "hidden", "value": "tblr"})
             "media": forms.TextInput(attrs={"type": "hidden", "value": "A4"})
