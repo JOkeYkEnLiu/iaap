@@ -39,8 +39,8 @@ def doPrint(order):
         sided = "two-sided-long-edge"
     else:
         sided = "two-sided-short-edge"
-    run = run + " " + printer.sides + order.sided
-    run = run + " " + printer.number_up + order.number_up + " " + printer.number_up_layout + order.number_up_layout
+    run = run + " " + printer.sides + sided
+    run = run + " " + printer.number_up + str(order.number_up) + " " + printer.number_up_layout + order.number_up_layout
     if order.page_ranges:
         run = run + " " + printer.page_ranges + " " + '"' + order.page_ranges + '"'
     run = run + " " +printer.copies + " " + order.copies
