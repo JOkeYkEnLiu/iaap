@@ -139,6 +139,9 @@ class PrintJobs(models.Model):
         (0, '已完成'),
         (1, '未完成'),
     )
+    PID_CHOICES = (
+        (1, '12F 的打印机'),
+    )
 
     PAYMENT_CHOICES = (
         (1, '余额支付'),
@@ -153,7 +156,7 @@ class PrintJobs(models.Model):
     )
     # Fields
     orderid = models.AutoField(primary_key=True, auto_created=True)
-    pid = models.IntegerField(help_text="所选打印机")
+    pid = models.IntegerField(choices=PID_CHOICES,help_text="所选打印机")
     uid = models.IntegerField(help_text="用户")
     upload = models.FileField(upload_to='uploads/%Y/%m/%d/', default="文件",blank=True)
     file_pages = models.IntegerField(help_text="文件页数", blank=True)
