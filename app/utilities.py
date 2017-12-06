@@ -43,6 +43,6 @@ def doPrint(order):
     run = run + " " + printer.number_up + str(order.number_up) + " " + printer.number_up_layout + order.number_up_layout
     if order.page_ranges:
         run = run + " " + printer.page_ranges + " " + '"' + order.page_ranges + '"'
-    run = run + " " +printer.copies + " " + order.copies
+    run = run + " " +printer.copies + " " + str(order.copies)
     print(run)
     afterPrint(order)
