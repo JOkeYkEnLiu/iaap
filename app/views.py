@@ -14,7 +14,7 @@ from django.core.files.base import ContentFile
 from .models import Profile, BalanceLog, Printer, PrinterOptions, RedeemCode, User, PrintJobs,paysAPI
 from app.pdf_page_count import getPDFPages
 from app.forms import QuickNewOrderForm
-from app.cost import getCost
+from app.utilities import getCost, doPrint
 import random
 import string
 
@@ -192,16 +192,23 @@ def new_print_job(request):
 
 
 def pay_order(request):
-    if request.GET.get('orderid'):
-        order = PrintJobs.objects.get(orderid=request.GET.get('orderid'))
-        user = request.user
-        if order.sided == 1:
-            sided = "单面打印"
-        elif order.sided >1 :
-            sided = "双面打印"
-        if order.pid == 1:
-            printer = "12F 的打印机"
+    if request.method=="POST":
+        orderid = request.POST.get['orderid']
+        if verify == PrintJobs.objects.get(orderid=orderid).verify:
+            doPrint(order)
+        else:
+            return HttpResponseRedirect('/user/print/new')
     else:
-        return HttpResponseRedirect('/user/print/new')
+        if request.GET.get('orderid'):
+            order = PrintJobs.objects.get(orderid=request.GET.get('orderid'))
+            user = request.user
+            if order.sided == 1:
+                sided = "单面打印"
+            elif order.sided >1 :
+                sided = "双面打印"
+            if order.pid == 1:
+                printer = "12F 的打印机"
+        else:
+            return HttpResponseRedirect('/user/print/new')
 
     return render(request, 'user/print/pay.html', locals())
