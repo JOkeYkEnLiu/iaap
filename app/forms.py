@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
+from app.models import PrintJobs
 
 
 class LoginForm(forms.Form):
