@@ -163,7 +163,6 @@ def announcement(request):
 def page_error(request):
     return render(request, 'error.html')
 
-\
 
 @login_required
 def new_print_job(request):
@@ -192,23 +191,29 @@ def new_print_job(request):
 
 
 def pay_order(request):
-    if request.method=="POST":
-        orderid = request.POST.get['orderid']
-        if verify == PrintJobs.objects.get(orderid=orderid).verify:
-            doPrint(order)
-        else:
-            return HttpResponseRedirect('/user/print/new')
+    
+    if request.GET.get('orderid'):
+        order = PrintJobs.objects.get(orderid=request.GET.get('orderid'))
+        user = request.user
+        if order.sided == 1:
+            sided = "单面打印"
+        elif order.sided >1 :
+            sided = "双面打印"
+        if order.pid == 1:
+            printer = "12F 的打印机"
     else:
-        if request.GET.get('orderid'):
-            order = PrintJobs.objects.get(orderid=request.GET.get('orderid'))
-            user = request.user
-            if order.sided == 1:
-                sided = "单面打印"
-            elif order.sided >1 :
-                sided = "双面打印"
-            if order.pid == 1:
-                printer = "12F 的打印机"
-        else:
-            return HttpResponseRedirect('/user/print/new')
+        return HttpResponseRedirect('/user/print/new')
 
     return render(request, 'user/print/pay.html', locals())
+
+def print_return(request):
+
+    if request.method == "POST":
+            orderid = request.POST.get['orderid']
+            if verify == PrintJobs.objects.get(orderid=orderid).verify:
+                doPrint(order)
+                return HttpResponse("打印成功")
+            else:
+                return HttpResponseRedirect('/user/print/new')
+    else:
+        return HttpResponse("返回页")
