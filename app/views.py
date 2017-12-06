@@ -165,29 +165,18 @@ def page_error(request):
 
 @login_required
 def new_print_job(request):
-    QuickForm = QuickNewOrderForm()
-    title = "IAAP | 开始打印" 
+    form = QuickNewOrderForm(request.POST or None, request.FILES or None)
+    title = "IAAP | 开始打印"
     active_nav = 'printjobs'
-    # if request.method == 'POST':
-    #     t = datetime.datetime.now()
-    #     f = request.FILES.get("file")
-    #     file_content = ContentFile(f.read())
-    #     pid = request.POST.get("pid")
-    #     uid = request.user.id
-    #     verify = ''.join(random.sample(string.ascii_letters + string.digits, 8))
-    #     sided = request.POST.get("sided")
-    #     number_up = request.POST.get("number_up")
-    #     number_up_layout = request.POST.get("number_up_layout")
-    #     media = request.POST.get("media")
-    #     page_ranges = request.POST.get("page_range")
-    #     copies = request.POST.get("copies")
-    #     created_time = datetime.datetime.now()
-    #     status = 1
-    #     order = PrintJobs.objects.create(pid=pid,uid=uid,verify=verify,sided=sided,number_up=number_up,number_up_layout=number_up_layout,media=media,copies=copies,page_ranges=page_ranges,created_time=created_time)
-    #     order.upload.save(f.name,file_content)
-    #     file_pages = getPDFPages(order.upload.path)
-    #     order.file_pages=file_pages
-    #     order.cost = file_pages * 0.5 * 1/sided
+    if form.is_valid():
+        order = form.save()
+        order.uid = request.user.id
+        order.verify = ''.join(random.sample(string.ascii_letters + string.digits, 8))
+        prder.created_time = datetime.datetime.now()
+        prder.status = 1
+        order.file_pages = getPDFPages(order.upload.path)
+        order.cost = 1
+        order.save()
 
     return render(request, 'user/print/new.html', locals())
 
