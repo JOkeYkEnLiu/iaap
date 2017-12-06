@@ -179,7 +179,7 @@ def new_print_job(request):
             order.file_pages = getPDFPages(order.upload.path)
             order.cost = 1
             order.save()
-            return HttpResponseRedirect('/user/print/pay?orderid=%s&verify=%s'%(str(order.id),str(order.verify)))
+            return HttpResponseRedirect('/user/print/pay?orderid=%s&verify=%s'%(str(order.orderid),str(order.verify)))
 
     else:
         form = QuickNewOrderForm(initial={"pid":1,"sided":1})
