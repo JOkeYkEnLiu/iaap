@@ -68,7 +68,7 @@ class QuickNewOrderForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
 
-        self.fields['upload'].widget.attrs['class'='form-control m-input'
+        self.fields['upload'].widget.attrs['class']='form-control m-input'
         self.fields['pid'].widget.attrs['class']='form-control m-input'
         self.fields['sided'].choices = [(1, "单面打印"), (2, "双面打印")]
         self.fields['sided'].attrs['class']='form-control m-input'
