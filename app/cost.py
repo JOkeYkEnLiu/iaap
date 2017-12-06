@@ -5,7 +5,7 @@ def getCost(order):
     pid = order.pid
     cost_per_page = Printer.objects.get(id=pid)
 
-    file_page = order.file_page
+    file_page = order.file_pages
     sided = order.sided
     number_up = order.number_up
 
