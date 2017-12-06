@@ -32,7 +32,7 @@ def doPrint(order):
     if printer.username:
         run = run + " " + printer.username
     
-    run = run + " " + printer.media + " " + order.media
+    run = run + " " + printer.media + order.media
     if order.sided == 1:
         sided = "one-sided"
     elif order.sided==2:
@@ -44,5 +44,6 @@ def doPrint(order):
     if order.page_ranges:
         run = run + " " + printer.page_ranges + " " + '"' + order.page_ranges + '"'
     run = run + " " +printer.copies + " " + str(order.copies)
+    run = run + " " + order.upload.path
     print(run)
     afterPrint(order)
