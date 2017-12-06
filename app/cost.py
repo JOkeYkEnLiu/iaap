@@ -3,7 +3,7 @@ import math
 
 def getCost(order):
     pid = order.pid
-    cost_per_page = Printer.objects.get(pid=pid)
+    cost_per_page = Printer.objects.get(id=pid)
 
     file_page = order.file_page
     sided = order.sided
