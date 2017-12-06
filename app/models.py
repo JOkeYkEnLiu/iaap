@@ -7,7 +7,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 # Used to generate URLs by reversing the URL patterns
 from django.urls import reverse
-from app.storage import PdfStorage
 
 
 class Profile(models.Model):
@@ -160,14 +159,14 @@ class PrintJobs(models.Model):
     pid = models.IntegerField(
         choices=PID_CHOICES, help_text="所选打印机",)
     uid = models.IntegerField(help_text="用户",)
-    upload = models.FileField(upload_to='uploads/d%Y/%m/%/', default="文件")
+    upload = models.FileField(upload_to='uploads/%Y/%m/%d', default="文件",)
     file_pages = models.IntegerField(help_text="文件页数",)
     verify = models.CharField(max_length=128, help_text="校验码",)
     sided = models.IntegerField(
         choices=SIDED_CHOICES, help_text='双面打印选项',)
     number_up = models.IntegerField(help_text="每张页数", default=1,)
     number_up_layout = models.CharField(max_length=128, choices=NUMBER_UP_LAYOUT_CHOICES, help_text="布局")
-    media = models.CharField(max_length=128, help_text="介质",)
+    media = models.CharField(max_length=128, help_text="介质",
     page_ranges = models.CharField(
         max_length=128, help_text="页面范围", blank=True)
     copies = models.IntegerField(help_text="份数", default=1,)
