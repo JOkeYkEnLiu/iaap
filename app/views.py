@@ -14,6 +14,7 @@ from django.core.files.base import ContentFile
 from .models import Profile, BalanceLog, Printer, PrinterOptions, RedeemCode, User, PrintJobs,paysAPI
 from app.pdf_page_count import getPDFPages
 from app.forms import QuickNewOrderForm
+from app.cost import getCost
 import random
 import string
 
@@ -162,6 +163,7 @@ def announcement(request):
 def page_error(request):
     return render(request, 'error.html')
 
+\
 
 @login_required
 def new_print_job(request):
@@ -176,8 +178,11 @@ def new_print_job(request):
             order.created_time = datetime.datetime.now()
             order.status = 1
             order.save()
-            order.file_pages = getPDFPages(order.upload.path)
-            order.cost = 1
+            file_page = getPDFPages(order.upload.path)
+            order.save()
+            cost=getCost(order)
+            order.print_pages=cost[0]
+            order.cost=cost[1]
             order.save()
             return HttpResponseRedirect('/user/print/pay?orderid=%s&verify=%s'%(str(order.orderid),str(order.verify)))
 
