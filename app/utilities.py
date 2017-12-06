@@ -21,7 +21,7 @@ def getCost(order):
 
 def afterPrint(order):
     order.status = 1
-    user = user.objects.get(id=order.uid)
+    user = User.objects.get(id=order.uid)
     order.printed_time = datetime.datetime.now()
     balance = BalanceLog()
     balance.create(uid=order.uid,operator=order.uid,operation_time=order.printed_time,operation_type=0,balance_initial=user.profile.balance,balance_change=order.cost,balance_final=user.profile.balance-order.cost)
