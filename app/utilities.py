@@ -20,7 +20,7 @@ def getCost(order):
     return [print_page,cost]
 
 def afterPrint(order):
-    order.status = 1
+    order.status = 0
     user = User.objects.get(id=order.uid)
     order.printed_time = datetime.datetime.now()
     order.save()
