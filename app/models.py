@@ -7,6 +7,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 # Used to generate URLs by reversing the URL patterns
 from django.urls import reverse
+from app.storage import PdfStorage
 
 
 class Profile(models.Model):
@@ -132,7 +133,7 @@ class PrintJobs(models.Model):
 
     SIDED_CHOICES = (
         (1, '单面打印'),
-        (2, '长边装订双面打印'),
+        (2, '双面打印'),
         (3, '短边装订双面打印'),
     )
     STATUS_CHOICES = (
@@ -157,16 +158,17 @@ class PrintJobs(models.Model):
     # Fields
     orderid = models.AutoField(primary_key=True, auto_created=True)
     pid = models.IntegerField(
-        choices=PID_CHOICES, help_text="所选打印机", blank=True)
-    uid = models.IntegerField(help_text="用户", blank=True)
-    upload = models.FileField(upload_to='uploads/%Y/%m/%d/', default="文件",blank=True)
-    file_pages = models.IntegerField(help_text="文件页数", blank=True)
-    verify = models.CharField(max_length=128, help_text="校验码", blank=True)
+        choices=PID_CHOICES, help_text="所选打印机",)
+    uid = models.IntegerField(help_text="用户",)
+    upload = models.FileField(upload_to='uploads/', default="文件", storage=PdfStorage())
+    file_name = models.CharField(help_text="文件名", blank=True)
+    file_pages = models.IntegerField(help_text="文件页数",)
+    verify = models.CharField(max_length=128, help_text="校验码",)
     sided = models.IntegerField(
-        choices=SIDED_CHOICES, help_text='双面打印选项', blank=True)
-    number_up = models.IntegerField(help_text="每张页数", default=1, blank=True)
-    number_up_layout = models.CharField(max_length=128, choices=NUMBER_UP_LAYOUT_CHOICES, help_text="布局",blank=True)
-    media = models.CharField(max_length=128, help_text="介质", blank=True)
+        choices=SIDED_CHOICES, help_text='双面打印选项',)
+    number_up = models.IntegerField(help_text="每张页数", default=1,)
+    number_up_layout = models.CharField(max_length=128, choices=NUMBER_UP_LAYOUT_CHOICES, help_text="布局")
+    media = models.CharField(max_length=128, help_text="介质",)
     page_ranges = models.CharField(
         max_length=128, help_text="页面范围", blank=True)
     copies = models.IntegerField(help_text="份数", default=1,)
