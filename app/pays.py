@@ -18,5 +18,5 @@ class paysAPI(object):
         self.istype = istype
         self.orderid = orderid
         self.key = hashlib.md5((str(self.istype) + str(self.NOTIFY_URL) + str(self.orderid) + str(self.orderuid) +
-                                str(self.price) + str(self.RETURN_URL) + str(self.PAYSAPITOKEN) + str(self.PAYSAPIUID)).encode("utf-8")).hexdiges()
+                                str(self.price) + str(self.RETURN_URL) + str(self.PAYSAPITOKEN) + str(self.PAYSAPIUID)).encode("utf-8")).hexdigest()
 
