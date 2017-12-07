@@ -25,6 +25,7 @@ urlpatterns = [
                 url(r'^user/print/$', views.new_print_job, name='new_print_job'),
                 url(r'^user/print/new', views.new_print_job, name='new_print_job'),
                 url(r'^user/print/pay', views.pay_order, name='pay_order'),
+                # url(r'^notify_url', views.pay_order, name='pay_order'),
                 url(r'^user/print/return', views.print_return, name='print_return'),
                 # url(r'^user/printer/$', views.view_printers, name='view_printers'),
                 # url(r'^user/ticket/$', views.ticket, name='ticket'),
