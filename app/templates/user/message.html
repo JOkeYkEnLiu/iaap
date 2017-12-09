@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %} {% block body %}
+<div class="m-content">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="m-portlet m-portlet--full-height   m-portlet--rounded">
+                <div class="m-portlet__body">
+                    <div class="m-card-profile">
+                        <div class="m-card-profile__details">
+                            <span class="m-card-profile__name">
+                                {{state}}
+                            </span>
+                            <span class="m-card-profile__email m-link">
+                                {{stateDetail}}
+                            </span>
+                            {% if redirect_url %}
+                            <meta http-equiv="refresh" content="2;url={{redirect_url}}">
+                            <a class="m-card-profile__email m-link" href="{{redirect_url}}">如果浏览器未能自动跳转，请点击此链接。</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

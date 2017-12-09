@@ -12,12 +12,12 @@ from django.core.files.base import ContentFile
 
 # Create your views here.
 from .models import Profile, BalanceLog, Printer, PrinterOptions, RedeemCode, User, PrintJobs, paysAPI
-from app.pays import paysAPI
+from app.pays import paysAPI, paysAPIReturn
 from app.pdf_page_count import getPDFPages
 from app.forms import QuickNewOrderForm
 from app.utilities import getCost, doPrint
 import random
-import string
+import string, hashlib
 
 def index(request):
     return HttpResponse("首页")
@@ -191,6 +191,7 @@ def new_print_job(request):
     return render(request, 'user/print/new.html', locals())
 
 
+@login_required
 def pay_order(request):
     
     if request.GET.get('orderid'):
@@ -209,20 +210,54 @@ def pay_order(request):
 
     return render(request, 'user/print/pay.html', locals())
 
-def print_return(request):
 
+def notify_return(request):
+    if request.method == "POST":
+        paysapi_id = request.POST.get("paysapi_id")
+        orderid = request.POST.get("orderid")
+        price = request.POST.get("price")
+        realprice = request.POST.get("realprice")
+        orderuid = request.POST.get("orderuid")
+        key = request.POST.get("key")
+        paysAPIreturn = paysAPIReturn(
+            paysapi_id=paysapi_id, orderid=orderid, price=price, realprice=realprice, orderuid=orderid, key=key)
+        if (paysapi_id and orderid and price and realprice and orderuid and key):
+            if paysAPIreturn.validateKEY():
+                beforePaysAPIPrint(PrintJobs.objects.get(orderid=orderid),paysAPIreturn)
+
+
+@login_required
+def print_return(request):
     if request.method == "POST":
         orderid = request.POST.get('orderid')
-        verify = request.POST.get('verify')
-        if verify == PrintJobs.objects.get(orderid=orderid).verify:
+        if orderid:
+            verify = request.POST.get('verify')
             order = PrintJobs.objects.get(orderid=orderid)
-            if order.status == 1:
-                order = PrintJobs.objects.get(orderid=orderid)
-                doPrint(order)
-                return HttpResponse("打印成功")
+            if verify == order.verify:
+                if order.payment == 1:
+                    if order.status == 1:
+                        order = PrintJobs.objects.get(orderid=orderid)
+                        doPrint(order)
+                        state = "打印成功"
+                        stateDetail = "如果打印机未能正常打印，请联系管理员。"
+                        return render(request, 'user/message.html', locals())
+                    else:
+                        return HttpResponseRedirect('/user/print/new?orderid=%d'%orderid)
+                else:
+                    state = "错误码 101"
+                    stateDetail = "如果您使用的是在线支付并且已经支付完成，打印机将正常打印。"
+                    return render(request, 'user/message.html', locals())
             else:
-                return HttpResponseRedirect('/user/print/new?orderid=%d'%orderid)
-        else:
-            return HttpResponseRedirect('/user/print/new')
+                if order.payment == 2:
+                    if order.status == 0:
+                        state = "打印成功"
+                        stateDetail = "如果打印机未能正常打印，请联系管理员。"
+                        return render(request, 'user/message.html', locals())
+                    else:
+                        state = "错误码 102"
+                        stateDetail = "您的订单很可能已经被打印，请联系管理员。"
+                        return render(request, 'user/message.html', locals())
+                else:
+                    return HttpResponseRedirect('/user/print/new')
     else:
-        return HttpResponse("返回页")
+        return HttpResponseRedirect('/user/print/new')

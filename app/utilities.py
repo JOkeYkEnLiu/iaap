@@ -56,3 +56,43 @@ def doPrint(order):
     # os.system(run)
     print(run)
     afterPrint(order)
+
+def beforePaysAPIPrint(order,paysAPIreturn):
+    order.payment = 2
+    order.status = 0
+    order.printed_time = datetime.datetime.now()
+    order.save()
+    newPaysAPIreturn = paysAPI.objects.create(orderid=paysAPIreturn.orderid, uid=paysAPIreturn.uid, price=paysAPIreturn.price,
+                                              realprice=paysAPIreturn.realprice, istype=paysAPIreturn.istype, paysapi_id=paysAPIreturn.paysapi_id, created_time=datetime.datetime.now())
+    newPaysAPIreturn.save()
+    doPaysAPIPrint(order)
+
+
+def doPaysAPIPrint(order):
+    pid = order.pid
+    printer = Printer.objects.get(id=pid)
+
+    run = printer.command + " " + printer.device_name
+
+    if printer.host_name:
+        run = run + " " + printer.host_name + ":" + printer.port
+    if printer.username:
+        run = run + " " + printer.username
+
+    run = run + " " + printer.media + order.media
+    if order.sided == 1:
+        sided = "one-sided"
+    elif order.sided == 2:
+        sided = "two-sided-long-edge"
+    else:
+        sided = "two-sided-short-edge"
+    run = run + " " + printer.sides + sided
+    run = run + " " + printer.number_up + \
+        str(order.number_up) + " " + \
+        printer.number_up_layout + order.number_up_layout
+    if order.page_ranges:
+        run = run + " " + printer.page_ranges + " " + '"' + order.page_ranges + '"'
+    run = run + " " + printer.copies + " " + str(order.copies)
+    run = run + " " + order.upload.path
+    # os.system(run)
+    print(run)

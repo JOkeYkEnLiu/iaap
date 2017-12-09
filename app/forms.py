@@ -77,3 +77,20 @@ class QuickNewOrderForm(forms.ModelForm):
             "page_ranges": forms.TextInput(attrs={"type": "hidden", "value": ""}),
             "copies": forms.NumberInput(attrs={'class': 'form-control m-input', "type": "number", "value": 1}),
             }
+
+
+class QuickNewOrderFormWithoutLogin(forms.ModelForm):
+    class Meta:
+        model = PrintJobs
+        fields = ['upload', 'pid', 'sided', 'number_up',
+                  'number_up_layout', 'media', 'page_ranges', 'copies']
+        widgets = {
+            'upload': forms.FileInput(attrs={'class': 'form-control m-input'}),
+            "pid": forms.Select(attrs={'class': 'form-control m-input', "value": "1"}),
+            'sided': forms.Select(attrs={'class': 'form-control m-input', "value": "1"}),
+            "number_up": forms.NumberInput(attrs={"type": "hidden", "value": 1}),
+            "number_up_layout": forms.TextInput(attrs={"type": "hidden", "value": "tblr"}),
+            "media": forms.TextInput(attrs={"type": "hidden", "value": "A4"}),
+            "page_ranges": forms.TextInput(attrs={"type": "hidden", "value": ""}),
+            "copies": forms.NumberInput(attrs={'class': 'form-control m-input', "type": "number", "value": 1}),
+        }

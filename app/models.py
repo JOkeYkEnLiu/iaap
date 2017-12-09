@@ -209,6 +209,7 @@ class paysAPI(models.Model):
     istype = models.IntegerField(choices=TYPE_CHOICES, help_text='支付渠道')
     paysapi_id = models.TextField(
         help_text='paysAPI 订单号', blank=True, null=True)
+    created_time = models.DateTimeField(help_text="创建时间")
 
 class RedeemCode(models.Model):
     """
