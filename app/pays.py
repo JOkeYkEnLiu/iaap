@@ -12,16 +12,16 @@ class paysAPI(object):
     """
     
     def __init__(self, uid, price, istype, orderid):
-        self.PAYSAPIUID = PAYSAPIUID
+        self.uid = PAYSAPIUID
         self.PAYSAPITOKEN = PAYSAPITOKEN
-        self.RETURN_URL = "http://print.iaa.ink/user/print/return"
-        self.NOTIFY_URL = "http://print.iaa.ink/notify_url"
+        self.RETURN_URL = "http://print.iaa.ink:58000/user/print/return"
+        self.NOTIFY_URL = "http://print.iaa.ink:58000/notify_url"
         self.orderuid = uid
         self.price = price
         self.istype = istype
         self.orderid = orderid
         self.key = hashlib.md5((str(self.istype) + str(self.NOTIFY_URL) + str(self.orderid) + str(self.orderuid) +
-                                str(self.price) + str(self.RETURN_URL) + str(self.PAYSAPITOKEN) + str(self.PAYSAPIUID)).encode("utf-8")).hexdigest()
+                                str(self.price) + str(self.RETURN_URL) + str(self.PAYSAPITOKEN) + str(self.uid)).encode("utf-8")).hexdigest()
 
 
 class paysAPIReturn(object):
