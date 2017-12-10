@@ -211,6 +211,7 @@ def pay_order(request):
     return render(request, 'user/print/pay.html', locals())
 
 
+@csrf_exempt
 def notify_return(request):
     if request.method == "POST":
         paysapi_id = request.POST.get("paysapi_id")
