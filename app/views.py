@@ -11,6 +11,7 @@ from django.conf import settings
 from django.core.files.base import ContentFile
 
 # Create your views here.
+from django.views.decorators.csrf import csrf_exempt
 from .models import Profile, BalanceLog, Printer, PrinterOptions, RedeemCode, User, PrintJobs, paysAPI
 from app.pays import paysAPI, paysAPIReturn
 from app.pdf_page_count import getPDFPages
