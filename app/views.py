@@ -204,7 +204,7 @@ def pay_order(request):
         if order.pid == 1:
             printer = "12F 的打印机"
         paysAPIWeChat = paysAPI(uid=request.user.id, price=order.cost, istype=2, orderid=order.orderid)
-        paysAPIWeChat = paysAPI(uid=request.user.id, price=order.cost, istype=1, orderid=order.orderid)
+        paysAPIAli = paysAPI(uid=request.user.id, price=order.cost, istype=1, orderid=order.orderid)
     else:
         return HttpResponseRedirect('/user/print/new')
 
