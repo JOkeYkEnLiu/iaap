@@ -184,7 +184,7 @@ def new_print_job(request):
             order.save()
             print_job = PrintJobs(order=order,
                                   pid=form.cleaned_data['pid'],
-                                  upload=request.FILES['file'],
+                                  upload=request.FILES['upload'],
                                   verify=''.join(random.sample(string.ascii_letters + string.digits, 8)),
                                   sided=form.cleaned_data['sided'],
                                   number_up=form.cleaned_data['number_up'],
