@@ -181,7 +181,7 @@ def new_print_job(request):
                           payment = 1,
                           )
             order.save()
-            print_job = PrintJobs(order=order.orderid,
+            print_job = PrintJobs(order=order,
                                   pid=form.cleaned_data['pid'],
                                   upload=request.FILES['file'],
                                   verify=''.join(random.sample(string.ascii_letters + string.digits, 8)),
