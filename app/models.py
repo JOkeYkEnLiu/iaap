@@ -251,7 +251,7 @@ class PrintJobs(models.Model):
 
 
     def __str__(self):
-            return "%s" %str(self.order.orderid))
+            return "%s" %str(self.order.orderid)
 
 class paysAPI(models.Model):
     """
