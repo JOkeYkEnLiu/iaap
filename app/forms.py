@@ -69,8 +69,12 @@ class QuickNewOrderForm(forms.Form):
         (2, '双面打印'),
         (3, '短边装订双面打印'),
     )
+    PID_CHOICES = (
+        (1, '12F 的打印机'),
+    )
     upload = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-control m-input'}))
-    pid = forms.IntegerField(widget=forms.Select(attrs={'class': 'form-control m-input',"value":"1"}))
+    pid = forms.IntegerField(widget=forms.Select(choices=PID_CHOICES, attrs={
+                             'class': 'form-control m-input', "value": "1"}))
     sided = forms.IntegerField(widget=forms.Select(choices=SIDED_CHOICES, attrs={
                                'class': 'form-control m-input', "value": "1"}))
     number_up = forms.IntegerField(widget=forms.NumberInput(attrs={"type": "hidden", "value": 1}))
