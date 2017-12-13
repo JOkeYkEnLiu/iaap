@@ -193,7 +193,7 @@ def new_print_job(request):
                                   copies=form.cleaned_data['copies'],
                                   print_pages=0,
                                   cost=0,
-                                  status=0,
+                                  status=1,
                                 )
             print_job.save()
             print_job.file_pages = getPDFPages(print_job.upload.path)
