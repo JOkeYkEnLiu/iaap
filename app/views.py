@@ -172,6 +172,7 @@ def new_print_job(request):
     active_nav = 'printjobs'
     if request.method=="POST":
         form = QuickNewOrderForm(request.POST, request.FILES)
+        print form.is_valid()
         if form.is_valid():
             order = Order(order_type = 1,
                           uid = request.user.id,
