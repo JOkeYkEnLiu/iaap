@@ -252,7 +252,7 @@ def print_return(request):
         orderid = request.POST.get('orderid')
         if orderid:
             verify = request.POST.get('verify')
-            print_job = PrintJobs.objects.get(order=orderid)
+            print_job = PrintJobs.objects.get(order=Order.objects.get(order=orderid))
             if verify == print_job.verify:
                 if print_job.order.payment == 1:
                     if print_job.status == 1:
