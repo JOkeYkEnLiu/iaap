@@ -262,7 +262,7 @@ def print_return(request):
                         stateDetail = "如果打印机未能正常打印，请联系管理员。"
                         return render(request, 'user/message.html', locals())
                     else:
-                        return HttpResponseRedirect('/user/print/new?orderid=%d'%orderid)
+                        return HttpResponseRedirect('/user/print/new?orderid=%s'%orderid)
                 else:
                     state = "错误码 101"
                     stateDetail = "如果您使用的是在线支付并且已经支付完成，打印机将正常打印。"
