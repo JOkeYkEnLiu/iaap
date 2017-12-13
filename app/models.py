@@ -224,7 +224,7 @@ class PrintJobs(models.Model):
         ('btrl', '从下到上，从右到左'),
     )
     # Fields
-    order = models.OneToOneField(Orders)
+    order = models.OneToOneField(Order)
     pid = models.IntegerField(
         choices=PID_CHOICES, help_text="所选打印机",)
     upload = models.FileField(upload_to='uploads', default="文件",)
@@ -256,7 +256,7 @@ class paysAPI(models.Model):
         (1, '支付宝'),
         (2, '微信支付'),
     )
-    order = models.OneToOneField(Orders)
+    order = models.OneToOneField(Order)
     uid = models.IntegerField(help_text="用户")
     price = models.DecimalField(
         max_digits=10, decimal_places=2, help_text="价格")
