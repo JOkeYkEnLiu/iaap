@@ -203,7 +203,7 @@ def new_print_job(request):
             print_job.cost=cost[1]
             print_job.order.price = cost[1]
             print_job.save()
-            return HttpResponseRedirect('/user/print/pay?orderid=%s&verify=%s'%(str(order.orderid),str(order.verify)))
+            return HttpResponseRedirect('/user/print/pay?orderid=%s&verify=%s'%(str(order.orderid),str(print_job.verify)))
 
     else:
         form = QuickNewOrderForm(initial={"pid":1,"sided":1})
