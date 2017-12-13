@@ -213,7 +213,7 @@ def new_print_job(request):
 @login_required
 def pay_order(request):
     if request.GET.get('orderid'):
-        print_job = PrintJobs.objects.get(orderid=request.GET.get('orderid'))
+        print_job = PrintJobs.objects.get(order=Order.objects.get(orderid=request.GET.get('orderid')))
         user = request.user
         if print_job.sided == 1:
             sided = "单面打印"
