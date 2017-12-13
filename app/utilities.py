@@ -21,7 +21,7 @@ def getCost(print_job):
 
 def afterPrint(print_job):
     print_job.status = 0
-    user = User.objects.get(id=print_job.uid)
+    user = User.objects.get(id=print_job.order.uid)
     print_job.printed_time = datetime.datetime.now()
     print_job.order.isPaid = 1
     print_job.save()
