@@ -25,7 +25,7 @@ def afterPrint(print_job):
     print_job.printed_time = datetime.datetime.now()
     print_job.order.isPaid = 1
     print_job.save()
-    balance = BalanceLog.objects.create(uid=print_job.order.uid,operator=print_job.order.uid,operation_time=print_job.printed_time,operation_type=0,balance_initial=user.profile.balance,balance_change=print_job.cost,balance_final=user.profile.balance-order.cost)
+    balance = BalanceLog.objects.create(uid=print_job.order.uid,operator=print_job.order.uid,operation_time=print_job.printed_time,operation_type=0,balance_initial=user.profile.balance,balance_change=print_job.cost,balance_final=user.profile.balance-print_job.cost)
     balance.save()
     user.profile.balance = balance.balance_final
     user.save()
