@@ -64,9 +64,14 @@ class RegisterForm(forms.Form):
     )
 
 class QuickNewOrderForm(forms.Form):
+    SIDED_CHOICES = (
+        (1, '单面打印'),
+        (2, '双面打印'),
+        (3, '短边装订双面打印'),
+    )
     upload = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-control m-input'}))
     pid = forms.IntegerField(widget=forms.Select(attrs={'class': 'form-control m-input',"value":"1"}))
-    sided = forms.IntegerField(widget=forms.Select(attrs={'class': 'form-control m-input',"value":"1"}))
+    sided = forms.IntegerField(choices=SIDED_CHOICES, widget=forms.Select(attrs={'class': 'form-control m-input', "value": "1"}))
     number_up = forms.IntegerField(widget=forms.NumberInput(attrs={"type": "hidden", "value": 1}))
     number_up_layout = forms.CharField(max_length=100,widget=forms.TextInput(attrs = {"type": "hidden", "value": "tblr"}))
     media = forms.CharField(max_length=128,widget=forms.TextInput(attrs={"type": "hidden", "value": "A4"}))
