@@ -12,7 +12,7 @@ from django.core.files.base import ContentFile
 
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
-from .models import Profile, BalanceLog, Printer, PrinterOptions, RedeemCode, User, PrintJobs, paysAPI
+from .models import Profile, BalanceLog, Printer, PrinterOptions, RedeemCode, User, PrintJobs, paysAPI, Order
 from app.pays import paysAPI, paysAPIReturn
 from app.pdf_page_count import getPDFPages
 from app.forms import QuickNewOrderForm
@@ -173,18 +173,36 @@ def new_print_job(request):
     if request.method=="POST":
         form = QuickNewOrderForm(request.POST, request.FILES)
         if form.is_valid():
-            order = form.save(commit=False)
-            order.uid = request.user.id
-            order.verify = ''.join(random.sample(string.ascii_letters + string.digits, 8))
-            order.created_time = datetime.datetime.now()
-            order.status = 1
+            order = Order(order_type = 1,
+                          uid = request.user.id,
+                          created_time = datetime.datetime.now(),
+                          isPaid = 0,
+                          price = 0.00,
+                          payment = 1,
+                          )
             order.save()
-            order.file_pages = getPDFPages(order.upload.path)
-            order.save()
-            cost=getCost(order)
-            order.print_pages=cost[0]
-            order.cost=cost[1]
-            order.save()
+            print_job = PrintJobs(order=order.orderid,
+                                  pid=form.cleaned_data['pid'],
+                                  upload=request.FILES['file'],
+                                  verify=''.join(random.sample(string.ascii_letters + string.digits, 8)),
+                                  sided=form.cleaned_data['sided'],
+                                  number_up=form.cleaned_data['number_up'],
+                                  number_up_layout=form.cleaned_data['number_up_layout'],
+                                  media=form.cleaned_data['media'],
+                                  page_ranges=form.cleaned_data['page_ranges'],
+                                  copies=form.cleaned_data['copies'],
+                                  print_pages=form.cleaned_data['print_pages'],
+                                  cost=form.cleaned_data['cost'],
+                                  status=0,
+                                )
+            print_job.save()
+            print_job.file_pages = getPDFPages(print_job.upload.path)
+            print_job.save()
+            cost=getCost(print_job)
+            print_job.print_pages=cost[0]
+            print_job.cost=cost[1]
+            print_job.order.price = cost[1]
+            print_job.save()
             return HttpResponseRedirect('/user/print/pay?orderid=%s&verify=%s'%(str(order.orderid),str(order.verify)))
 
     else:
@@ -194,18 +212,17 @@ def new_print_job(request):
 
 @login_required
 def pay_order(request):
-    
     if request.GET.get('orderid'):
-        order = PrintJobs.objects.get(orderid=request.GET.get('orderid'))
+        print_job = PrintJobs.objects.get(orderid=request.GET.get('orderid'))
         user = request.user
-        if order.sided == 1:
+        if print_job.sided == 1:
             sided = "单面打印"
-        elif order.sided >1 :
+        elif print_job.sided >1 :
             sided = "双面打印"
-        if order.pid == 1:
+        if print_job.pid == 1:
             printer = "12F 的打印机"
-        paysAPIWeChat = paysAPI(uid=request.user.id, price=order.cost, istype=2, orderid=order.orderid)
-        paysAPIAli = paysAPI(uid=request.user.id, price=order.cost, istype=1, orderid=order.orderid)
+        paysAPIWeChat = paysAPI(uid=request.user.id, price=print_job.cost, istype=2, orderid=print_job.order.orderid)
+        paysAPIAli = paysAPI(uid=request.user.id, price=print_job.cost,istype=1, orderid=print_job.order.orderid)
     else:
         return HttpResponseRedirect('/user/print/new')
 
@@ -225,7 +242,8 @@ def notify_return(request):
             paysapi_id=paysapi_id, orderid=orderid, price=price, realprice=realprice, orderuid=orderid, key=key)
         if (paysapi_id and orderid and price and realprice and orderuid and key):
             if paysAPIreturn.validateKEY():
-                beforePaysAPIPrint(PrintJobs.objects.get(orderid=orderid),paysAPIreturn)
+                beforePaysAPIPrint(PrintJobs.objects.get(order=orderid),paysAPIreturn)
+                return HttpResponse("收到")
 
 
 @login_required
@@ -234,12 +252,12 @@ def print_return(request):
         orderid = request.POST.get('orderid')
         if orderid:
             verify = request.POST.get('verify')
-            order = PrintJobs.objects.get(orderid=orderid)
-            if verify == order.verify:
-                if order.payment == 1:
-                    if order.status == 1:
-                        order = PrintJobs.objects.get(orderid=orderid)
-                        doPrint(order)
+            print_job = PrintJobs.objects.get(order=orderid)
+            if verify == print_job.verify:
+                if print_job.order.payment == 1:
+                    if print_job.status == 1:
+                        print_job = PrintJobs.objects.get(order=orderid)
+                        doPrint(print_job)
                         state = "打印成功"
                         stateDetail = "如果打印机未能正常打印，请联系管理员。"
                         return render(request, 'user/message.html', locals())
@@ -250,8 +268,8 @@ def print_return(request):
                     stateDetail = "如果您使用的是在线支付并且已经支付完成，打印机将正常打印。"
                     return render(request, 'user/message.html', locals())
             else:
-                if order.payment == 2:
-                    if order.status == 0:
+                if print_job.order.payment == 2:
+                    if print_job.status == 0:
                         state = "打印成功"
                         stateDetail = "如果打印机未能正常打印，请联系管理员。"
                         return render(request, 'user/message.html', locals())
