@@ -190,7 +190,7 @@ def new_print_job(request):
                                   number_up=form.cleaned_data['number_up'],
                                   number_up_layout=form.cleaned_data['number_up_layout'],
                                   media=form.cleaned_data['media'],
-                                  page_ranges=form.cleaned_data['page_ranges'],
+                                  page_ranges=form.cleaned_data['page_range'],
                                   copies=form.cleaned_data['copies'],
                                   print_pages=form.cleaned_data['print_pages'],
                                   cost=form.cleaned_data['cost'],
