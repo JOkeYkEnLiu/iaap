@@ -192,8 +192,8 @@ def new_print_job(request):
                                   media=form.cleaned_data['media'],
                                   page_ranges=form.cleaned_data['page_range'],
                                   copies=form.cleaned_data['copies'],
-                                  print_pages=form.cleaned_data['print_pages'],
-                                  cost=form.cleaned_data['cost'],
+                                  print_pages=0,
+                                  cost=0,
                                   status=0,
                                 )
             print_job.save()
