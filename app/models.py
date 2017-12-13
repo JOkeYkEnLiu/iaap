@@ -126,7 +126,7 @@ class PrinterOptions(models.Model):
 
     # Metadata
     class Meta:
-        ordering = ["-orderid"]
+        ordering = ["-id"]
 
     # Methods
     def get_absolute_url(self):
@@ -268,4 +268,4 @@ class paysAPI(models.Model):
     created_time = models.DateTimeField(help_text="创建时间")
 
     def __str__(self):
-        return self.orderid
+        return self.order.orderid
