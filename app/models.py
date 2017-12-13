@@ -23,6 +23,8 @@ class Profile(models.Model):
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
 
+    def __str__(self):
+            return "%s" % (User.objects.get(pk=self.uid).username)
 
 class BalanceLog(models.Model):
     """
@@ -247,6 +249,9 @@ class PrintJobs(models.Model):
     printed_time = models.DateTimeField(
         help_text="任务打印时间（可选）", blank=True, null=True)
 
+
+    def __str__(self):
+            return "%s" %str(self.order.orderid))
 
 class paysAPI(models.Model):
     """
