@@ -197,7 +197,7 @@ class Order(models.Model):
          return reverse('redeem-code-detail', args=[str(self.id)])
 
     def __str__(self):
-        return self.orderid
+        return str(self.orderid)
 
 
 class PrintJobs(models.Model):
