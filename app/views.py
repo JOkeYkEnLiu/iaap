@@ -15,7 +15,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Profile, BalanceLog, Printer, PrinterOptions, RedeemCode, User, PrintJobs, paysAPI, Order
 from app.pays import paysAPI, paysAPIReturn
 from app.pdf_page_count import getPDFPages
-from app.forms import QuickNewOrderForm
+from app.forms import QuickNewOrderForm, NewOrderForm
 from app.utilities import getCost, doPrint, beforePaysAPIPrint
 import random
 import string, hashlib
@@ -171,7 +171,10 @@ def new_print_job(request):
     title = "IAAP | 开始打印"
     active_nav = 'printjobs'
     if request.method=="POST":
-        form = QuickNewOrderForm(request.POST, request.FILES)
+        if request.POST.get('advanced') == 'true':
+            form = NewOrderForm(request.POST, request.FILES)
+        else:
+            form = QuickNewOrderForm(request.POST, request.FILES)
         if form.is_valid():
             order = Order(order_type = 1,
                           uid = request.user.id,
@@ -208,8 +211,10 @@ def new_print_job(request):
     else:
         if request.GET.get('orderid'):
             form = QuickNewOrderForm(initial={"pid": 1, "sided": 1})
+            advanced_form = NewOrderForm()
         else:
             form = QuickNewOrderForm(initial={"pid":1,"sided":1})
+            advanced_form = NewOrderForm()
     return render(request, 'user/print/new.html', locals())
 
 
