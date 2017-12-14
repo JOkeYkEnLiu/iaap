@@ -16,7 +16,7 @@ from .models import Profile, BalanceLog, Printer, PrinterOptions, RedeemCode, Us
 from app.pays import paysAPI, paysAPIReturn
 from app.pdf_page_count import getPDFPages
 from app.forms import QuickNewOrderForm
-from app.utilities import getCost, doPrint
+from app.utilities import getCost, doPrint, beforePaysAPIPrint
 import random
 import string, hashlib
 
