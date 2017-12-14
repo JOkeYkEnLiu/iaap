@@ -267,7 +267,7 @@ class paysAPI(models.Model):
         max_digits=10, decimal_places=2, help_text="价格")
     realprice = models.DecimalField(
         max_digits=10, decimal_places=2, help_text="实际价格")
-    istype = models.IntegerField(choices=TYPE_CHOICES, help_text='支付渠道', blank=True)
+    istype = models.IntegerField(choices=TYPE_CHOICES, help_text='支付渠道', blank=True, null=True)
     paysapi_id = models.TextField(
         help_text='paysAPI 订单号', blank=True, null=True)
     created_time = models.DateTimeField(help_text="创建时间")
