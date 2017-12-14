@@ -242,7 +242,7 @@ def notify_return(request):
         orderuid = request.POST.get("orderuid")
         key = request.POST.get("key")
         paysAPIreturn = paysAPIReturn(
-            paysapi_id=paysapi_id, orderid=orderid, price=price, realprice=realprice, orderuid=orderid, key=key)
+            paysapi_id=paysapi_id, orderid=orderid, price=price, realprice=realprice, orderuid=orderuid, key=key)
         if (paysapi_id and orderid and price and realprice and orderuid and key):
             print('有效')
             if paysAPIreturn.validateKEY():
