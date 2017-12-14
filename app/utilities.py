@@ -64,7 +64,7 @@ def beforePaysAPIPrint(print_job,paysAPIreturn):
     print_job.printed_time = datetime.datetime.now()
     print_job.order.isPaid = 1
     print_job.save()
-    newPaysAPIreturn = paysAPI.objects.create(orderid=paysAPIreturn.orderid, uid=paysAPIreturn.uid, price=paysAPIreturn.price,
+    newPaysAPIreturn = paysAPI.objects.create(order=print_job.order, uid=paysAPIreturn.uid, price=paysAPIreturn.price,
                                               realprice=paysAPIreturn.realprice, istype=paysAPIreturn.istype, paysapi_id=paysAPIreturn.paysapi_id, created_time=datetime.datetime.now())
     newPaysAPIreturn.save()
     doPaysAPIPrint(print_job)

@@ -206,7 +206,10 @@ def new_print_job(request):
             return HttpResponseRedirect('/user/print/pay?orderid=%s&verify=%s'%(str(order.orderid),str(print_job.verify)))
 
     else:
-        form = QuickNewOrderForm(initial={"pid":1,"sided":1})
+        if request.GET.get('orderid'):
+            form = QuickNewOrderForm(initial={"pid": 1, "sided": 1})
+        else:
+            form = QuickNewOrderForm(initial={"pid":1,"sided":1})
     return render(request, 'user/print/new.html', locals())
 
 
@@ -241,10 +244,13 @@ def notify_return(request):
         paysAPIreturn = paysAPIReturn(
             paysapi_id=paysapi_id, orderid=orderid, price=price, realprice=realprice, orderuid=orderid, key=key)
         if (paysapi_id and orderid and price and realprice and orderuid and key):
+            print('有效')
             if paysAPIreturn.validateKEY():
-                beforePaysAPIPrint(PrintJobs.objects.get(order=orderid),paysAPIreturn)
+                beforePaysAPIPrint(PrintJobs.objects.get(order=Order.objects.get(orderid=orderid)),paysAPIreturn)
                 return HttpResponse("收到")
-
+            print('key 无效')
+        else:
+            print('无效')
 
 @login_required
 def print_return(request):
