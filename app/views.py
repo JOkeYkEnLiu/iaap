@@ -205,6 +205,7 @@ def new_print_job(request):
             print_job.print_pages=cost[0]
             print_job.cost=cost[1]
             print_job.order.price = cost[1]
+            print_job.order.save()
             print_job.save()
             return HttpResponseRedirect('/user/print/pay?orderid=%s&verify=%s'%(str(order.orderid),str(print_job.verify)))
 
