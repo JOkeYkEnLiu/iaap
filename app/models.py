@@ -135,7 +135,7 @@ class PrinterOptions(models.Model):
          return reverse('job-detail', args=[str(self.id)])
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
 
 class RedeemCode(models.Model):
@@ -273,4 +273,4 @@ class paysAPI(models.Model):
     created_time = models.DateTimeField(help_text="创建时间")
 
     def __str__(self):
-        return self.order.orderid
+        return str(self.order.orderid)
