@@ -23,6 +23,8 @@ class Profile(models.Model):
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
 
+    def __str__(self):
+            return "%s" % (User.objects.get(pk=self.uid).username)
 
 class BalanceLog(models.Model):
     """
@@ -124,92 +126,17 @@ class PrinterOptions(models.Model):
     def __str__(self):
         return self.description
 
-
-class PrintJobs(models.Model):
-    """
-    打印任务模型
-    """
-
-    SIDED_CHOICES = (
-        (1, '单面打印'),
-        (2, '双面打印'),
-        (3, '短边装订双面打印'),
-    )
-    STATUS_CHOICES = (
-        (0, '已完成'),
-        (1, '未完成'),
-    )
-    PID_CHOICES = (
-        (1, '12F 的打印机'),
-    )
-
-    PAYMENT_CHOICES = (
-        (1, '余额支付'),
-        (2, 'paysAPI'),
-        (99, '我是管理员'),
-    )
-    NUMBER_UP_LAYOUT_CHOICES = (
-        ('tblr','从上到下，从左到右'),
-        ('tbrl', '从上到下，从右到左'),
-        ('btlr', '从下到上，从左到右'),
-        ('btrl', '从下到上，从右到左'),
-    )
-    # Fields
-    orderid = models.AutoField(primary_key=True, auto_created=True)
-    pid = models.IntegerField(
-        choices=PID_CHOICES, help_text="所选打印机",)
-    uid = models.IntegerField(help_text="用户",)
-    upload = models.FileField(upload_to='uploads', default="文件",)
-    file_pages = models.IntegerField(help_text="文件页数",blank=True,null=True)
-    verify = models.CharField(max_length=128, help_text="校验码",)
-    sided = models.IntegerField(
-        choices=SIDED_CHOICES, help_text='双面打印选项',)
-    number_up = models.IntegerField(help_text="每张页数", default=1,)
-    number_up_layout = models.CharField(max_length=128, choices=NUMBER_UP_LAYOUT_CHOICES, help_text="布局")
-    media = models.CharField(max_length=128, help_text="介质",)
-    page_ranges = models.CharField(
-        max_length=128, help_text="页面范围", blank=True, null=True)
-    copies = models.IntegerField(help_text="份数", default=1)
-    print_pages = models.IntegerField(
-        help_text="实际打印张数", blank=True, null=True)
-    cost = models.DecimalField(
-        max_digits=10, decimal_places=2, help_text="花费", blank=True,null=True)
-    payment = models.IntegerField(
-        choices=PAYMENT_CHOICES, help_text="支付方式", blank=True, null=True)
-    created_time = models.DateTimeField(help_text="任务创建时间")
-    status = models.IntegerField(choices=STATUS_CHOICES, help_text="任务状态")
-    printed_time = models.DateTimeField(help_text="任务打印时间（可选）", blank=True, null=True)
-
-
     # Metadata
     class Meta:
-        ordering = ["-orderid"]
+        ordering = ["-id"]
 
     # Methods
     def get_absolute_url(self):
          return reverse('job-detail', args=[str(self.id)])
 
     def __str__(self):
-        return "%s 创建的打印 %s 的任务"%(User.objects.get(pk=self.uid).username, self.upload)
+        return str(self.id)
 
-class paysAPI(models.Model):
-    """
-    paysAPI 调用日志模型
-    """
-    TYPE_CHOICES = (
-        (1, '支付宝'),
-        (2,'微信支付'),
-    )
-    orderid = models.OneToOneField(PrintJobs)
-    uid = models.IntegerField(help_text="用户")
-    price = models.DecimalField(
-        max_digits=10, decimal_places=2, help_text="价格")
-    realprice = models.DecimalField(
-        max_digits=10, decimal_places=2, help_text="实际价格")
-    istype = models.IntegerField(choices=TYPE_CHOICES, help_text='支付渠道')
-    paysapi_id = models.TextField(
-        help_text='paysAPI 订单号', blank=True, null=True)
-    created_time = models.DateTimeField(help_text="创建时间")
 
 class RedeemCode(models.Model):
     """
@@ -234,6 +161,116 @@ class RedeemCode(models.Model):
          return reverse('redeem-code-detail', args=[str(self.id)])
 
     def __str__(self):
-        return self.amount
+        return self.code
 
 
+class Order(models.Model):
+    """
+    订单模型
+    """
+
+    ORDER_TYPE_CHOICES = (
+        (1,'打印'),
+        (2,'充值'),
+    )
+    PAYMENT_CHOICES = (
+        (1, '余额支付'),
+        (2, 'paysAPI'),
+        (99, '我是管理员'),
+    )
+
+    # Fields
+    orderid = models.AutoField(primary_key=True, auto_created=True)
+    order_type = models.IntegerField(choices=ORDER_TYPE_CHOICES,help_text='类型')
+    uid = models.IntegerField(help_text="创建人")
+    created_time = models.DateTimeField(help_text="创建时间")
+    isPaid = models.BooleanField(help_text="是否付款")
+    price = models.DecimalField(
+        max_digits=10, decimal_places=2, help_text="金额")
+    payment = models.IntegerField(
+        choices=PAYMENT_CHOICES, help_text="支付方式", blank=True, null=True)
+    
+    # Metadata
+    class Meta:
+        ordering = ["-created_time"]
+
+    # Methods
+    def get_absolute_url(self):
+         return reverse('redeem-code-detail', args=[str(self.id)])
+
+    def __str__(self):
+        return str(self.orderid)
+
+
+class PrintJobs(models.Model):
+    """
+    打印任务模型
+    """
+
+    SIDED_CHOICES = (
+        (1, '单面打印'),
+        (2, '双面打印'),
+        (3, '短边装订双面打印'),
+    )
+    STATUS_CHOICES = (
+        (0, '已完成'),
+        (1, '未完成'),
+    )
+    PID_CHOICES = (
+        (1, '12F 的打印机'),
+    )
+    NUMBER_UP_LAYOUT_CHOICES = (
+        ('tblr', '从上到下，从左到右'),
+        ('tbrl', '从上到下，从右到左'),
+        ('btlr', '从下到上，从左到右'),
+        ('btrl', '从下到上，从右到左'),
+    )
+    # Fields
+    order = models.OneToOneField(Order)
+    pid = models.IntegerField(
+        choices=PID_CHOICES, help_text="所选打印机",)
+    upload = models.FileField(upload_to='uploads', default="文件",)
+    file_pages = models.IntegerField(help_text="文件页数", blank=True, null=True)
+    verify = models.CharField(max_length=128, help_text="校验码",)
+    sided = models.IntegerField(
+        choices=SIDED_CHOICES, help_text='双面打印选项',)
+    number_up = models.IntegerField(help_text="每张页数", default=1,)
+    number_up_layout = models.CharField(
+        max_length=128, choices=NUMBER_UP_LAYOUT_CHOICES, help_text="布局")
+    media = models.CharField(max_length=128, help_text="介质",)
+    page_ranges = models.CharField(
+        max_length=128, help_text="页面范围", blank=True, null=True)
+    copies = models.IntegerField(help_text="份数", default=1)
+    print_pages = models.IntegerField(
+        help_text="实际打印张数", blank=True, null=True)
+    cost = models.DecimalField(
+        max_digits=10, decimal_places=2, help_text="花费", blank=True, null=True)
+    status = models.IntegerField(choices=STATUS_CHOICES, help_text="任务状态")
+    printed_time = models.DateTimeField(
+        help_text="任务打印时间（可选）", blank=True, null=True)
+
+
+    def __str__(self):
+            return "%s" %str(self.order.orderid)
+
+class paysAPI(models.Model):
+    """
+    paysAPI 调用日志模型
+    """
+    TYPE_CHOICES = (
+        (1, '支付宝'),
+        (2, '微信支付'),
+    )
+    order = models.OneToOneField(Order)
+    uid = models.IntegerField(help_text="用户")
+    price = models.DecimalField(
+        max_digits=10, decimal_places=2, help_text="价格")
+    realprice = models.DecimalField(
+        max_digits=10, decimal_places=2, help_text="实际价格")
+    istype = models.IntegerField(choices=TYPE_CHOICES, help_text='支付渠道', blank=True, null=True)
+    paysapi_id = models.TextField(
+        help_text='paysAPI 订单号', blank=True, null=True)
+    created_time = models.DateTimeField(help_text="创建时间")
+
+    def __str__(self):
+        return str(self.order.orderid)

@@ -25,7 +25,7 @@
                                 </div>
                                 <div class="col m--align-right">
                                     <span class="m-widget1__number m--font-brand">
-                                        {{order.orderid}}
+                                        {{print_job.order.orderid}}
                                     </span>
                                 </div>
                             </div>
@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="col m--align-right">
                                     <span class="m-widget1__number m--font-brand">
-                                        {{order.upload.name}}
+                                        {{print_job.upload.name}}
                                     </span>
                                 </div>
                             </div>
@@ -81,7 +81,7 @@
                                 </div>
                                 <div class="col m--align-right">
                                     <span class="m-widget1__number m--font-brand">
-                                        {{order.copies}}
+                                        {{print_job.copies}}
                                     </span>
                                 </div>
                             </div>
@@ -95,7 +95,7 @@
                                 </div>
                                 <div class="col m--align-right">
                                     <span class="m-widget1__number m--font-brand">
-                                        {{order.print_pages}}
+                                        {{print_job.print_pages}}
                                     </span>
                                 </div>
                             </div>
@@ -109,7 +109,7 @@
                                 </div>
                                 <div class="col m--align-right">
                                     <span class="m-widget1__number m--font-brand">
-                                        {{order.created_time}}                                    </span>
+                                        {{print_job.order.created_time}}                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -125,7 +125,7 @@
                                 </div>
                                 <div class="col m--align-right">
                                     <span class="m-widget1__number m--font-success">
-                                        {{order.cost}}
+                                        {{print_job.cost}}
                                     </span>
                                 </div>
                             </div>
@@ -164,8 +164,8 @@
                     <div class="tab-pane active" id="payment_1">
                         <form class="m-form m-form--fit m-form--label-align-right" action="/user/print/return" method="POST">
                             {% csrf_token %}
-                            <input type="hidden" name="orderid" value="{{order.orderid}}">
-                            <input type="hidden" name="verify" value="{{order.verify}}">
+                            <input type="hidden" name="orderid" value="{{print_job.order.orderid}}">
+                            <input type="hidden" name="verify" value="{{print_job.verify}}">
                             <div class="m-portlet__body">
                                 <div class="form-group m-form__group row">
                                     <label for="example-text-input" class="col-2 col-form-label">
@@ -180,7 +180,7 @@
                                         扣款金额
                                     </label>
                                     <div class="col-7">
-                                        <input class="form-control m-input" value="¥{{order.cost}}" type="text" disabled>
+                                        <input class="form-control m-input" value="¥{{print_job.cost}}" type="text" disabled>
                                     </div>
                                 </div>
                             </div>

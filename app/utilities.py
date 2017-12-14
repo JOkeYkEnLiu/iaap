@@ -1,14 +1,14 @@
-from .models import Profile, BalanceLog, Printer, PrinterOptions, RedeemCode, User, PrintJobs, paysAPI
+from .models import Profile, BalanceLog, Printer, PrinterOptions, RedeemCode, User, PrintJobs, paysAPI, Order
 import math
 import os, datetime
 
-def getCost(order):
-    pid = order.pid
+def getCost(print_job):
+    pid = print_job.pid
     cost_per_page = Printer.objects.get(id=pid).cost_per_page
 
-    file_page = order.file_pages
-    sided = order.sided
-    number_up = order.number_up
+    file_page = print_job.file_pages
+    sided = print_job.sided
+    number_up = print_job.number_up
 
     if sided == 1:
         p = 1
@@ -19,18 +19,20 @@ def getCost(order):
     cost = cost_per_page * print_page
     return [print_page,cost]
 
-def afterPrint(order):
-    order.status = 0
-    user = User.objects.get(id=order.uid)
-    order.printed_time = datetime.datetime.now()
-    order.save()
-    balance = BalanceLog.objects.create(uid=order.uid,operator=order.uid,operation_time=order.printed_time,operation_type=0,balance_initial=user.profile.balance,balance_change=order.cost,balance_final=user.profile.balance-order.cost)
+def afterPrint(print_job):
+    print_job.status = 0
+    user = User.objects.get(id=print_job.order.uid)
+    print_job.printed_time = datetime.datetime.now()
+    print_job.order.isPaid = 1
+    print_job.order.save()
+    print_job.save()
+    balance = BalanceLog.objects.create(uid=print_job.order.uid,operator=print_job.order.uid,operation_time=print_job.printed_time,operation_type=0,balance_initial=user.profile.balance,balance_change=print_job.cost,balance_final=user.profile.balance-print_job.cost)
     balance.save()
     user.profile.balance = balance.balance_final
     user.save()
 
-def doPrint(order):
-    pid = order.pid
+def doPrint(print_job):
+    pid = print_job.pid
     printer = Printer.objects.get(id=pid)
 
     run = printer.command + " " + printer.device_name
@@ -40,36 +42,38 @@ def doPrint(order):
     if printer.username:
         run = run + " " + printer.username
     
-    run = run + " " + printer.media + order.media
-    if order.sided == 1:
+    run = run + " " + printer.media + print_job.media
+    if print_job.sided == 1:
         sided = "one-sided"
-    elif order.sided==2:
+    elif print_job.sided==2:
         sided = "two-sided-long-edge"
     else:
         sided = "two-sided-short-edge"
     run = run + " " + printer.sides + sided
-    run = run + " " + printer.number_up + str(order.number_up) + " " + printer.number_up_layout + order.number_up_layout
-    if order.page_ranges:
-        run = run + " " + printer.page_ranges + " " + '"' + order.page_ranges + '"'
-    run = run + " " +printer.copies + " " + str(order.copies)
-    run = run + " " + order.upload.path
+    run = run + " " + printer.number_up + str(print_job.number_up) + " " + printer.number_up_layout + print_job.number_up_layout
+    if print_job.page_ranges:
+        run = run + " " + printer.page_ranges + " " + '"' + print_job.page_ranges + '"'
+    run = run + " " +printer.copies + " " + str(print_job.copies)
+    run = run + " " + print_job.upload.path
     # os.system(run)
     print(run)
-    afterPrint(order)
+    afterPrint(print_job)
 
-def beforePaysAPIPrint(order,paysAPIreturn):
-    order.payment = 2
-    order.status = 0
-    order.printed_time = datetime.datetime.now()
-    order.save()
-    newPaysAPIreturn = paysAPI.objects.create(orderid=paysAPIreturn.orderid, uid=paysAPIreturn.uid, price=paysAPIreturn.price,
-                                              realprice=paysAPIreturn.realprice, istype=paysAPIreturn.istype, paysapi_id=paysAPIreturn.paysapi_id, created_time=datetime.datetime.now())
+def beforePaysAPIPrint(print_job,paysAPIreturn):
+    print_job.order.payment = 2
+    print_job.status = 0
+    print_job.printed_time = datetime.datetime.now()
+    print_job.order.isPaid = 1
+    print_job.order.save()
+    print_job.save()
+    newPaysAPIreturn = paysAPI.objects.create(order=print_job.order, uid=paysAPIreturn.orderuid, price=paysAPIreturn.price,
+                                              realprice=paysAPIreturn.realprice, paysapi_id=paysAPIreturn.paysapi_id, created_time=datetime.datetime.now())
     newPaysAPIreturn.save()
-    doPaysAPIPrint(order)
+    doPaysAPIPrint(print_job)
 
 
-def doPaysAPIPrint(order):
-    pid = order.pid
+def doPaysAPIPrint(print_job):
+    pid = print_job.pid
     printer = Printer.objects.get(id=pid)
 
     run = printer.command + " " + printer.device_name
@@ -79,20 +83,20 @@ def doPaysAPIPrint(order):
     if printer.username:
         run = run + " " + printer.username
 
-    run = run + " " + printer.media + order.media
-    if order.sided == 1:
+    run = run + " " + printer.media + print_job.media
+    if print_job.sided == 1:
         sided = "one-sided"
-    elif order.sided == 2:
+    elif print_job.sided == 2:
         sided = "two-sided-long-edge"
     else:
         sided = "two-sided-short-edge"
     run = run + " " + printer.sides + sided
     run = run + " " + printer.number_up + \
-        str(order.number_up) + " " + \
-        printer.number_up_layout + order.number_up_layout
-    if order.page_ranges:
-        run = run + " " + printer.page_ranges + " " + '"' + order.page_ranges + '"'
-    run = run + " " + printer.copies + " " + str(order.copies)
-    run = run + " " + order.upload.path
+        str(print_job.number_up) + " " + \
+        printer.number_up_layout + print_job.number_up_layout
+    if print_job.page_ranges:
+        run = run + " " + printer.page_ranges + " " + '"' + print_job.page_ranges + '"'
+    run = run + " " + printer.copies + " " + str(print_job.copies)
+    run = run + " " + print_job.upload.path
     # os.system(run)
     print(run)
