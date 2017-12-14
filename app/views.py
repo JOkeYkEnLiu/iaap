@@ -248,7 +248,8 @@ def notify_return(request):
             if paysAPIreturn.validateKEY():
                 beforePaysAPIPrint(PrintJobs.objects.get(order=Order.objects.get(orderid=orderid)),paysAPIreturn)
                 return HttpResponse("收到")
-            print('key 无效')
+            else:
+                print('key 无效')
         else:
             print('无效')
 
