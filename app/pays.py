@@ -41,8 +41,6 @@ class paysAPIReturn(object):
     def validateKEY(self):
         self.myKEY = hashlib.md5((self.orderid + self.orderuid + self.paysapi_id +
                                   self.price + self.realprice + self.token).encode("utf-8")).hexdigest()
-        print(self.myKEY)
-        print(self.key)
         if self.myKEY == self.key:
             return True
         else:
