@@ -176,7 +176,7 @@ def new_print_job(request):
         else:
             form = QuickNewOrderForm(request.POST, request.FILES)
         if form.is_valid():
-            if !(request.FILES['upload'].name.endswith(".pdf")):
+            if not (request.FILES['upload'].name.endswith(".pdf")):
                 state = '订单创建错误'
                 stateDetail = '请检查上传文件是否为 PDF'
                 redirect_url = '/user/print/new'
