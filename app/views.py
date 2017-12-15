@@ -284,14 +284,13 @@ def print_return(request):
                             doPrint(print_job)
                             state = "打印成功"
                             stateDetail = "如果打印机未能正常打印，请联系管理员。"
-                            redirect_url = '/user/print/pay?orderid=%s&verify=%s'%(str(orderid), str(verify))
                             return render(request, 'user/message.html', locals())
                         else:
                             return HttpResponseRedirect('/user/print/new?orderid=%s'%orderid)
                     else:
                         state = '打印失败'
                         stateDetail = '余额不足，请充值或选择其他支付方式'
-                        redirect_url = '/user/print/new'
+                        redirect_url = '/user/print/pay?orderid=%s&verify=%s' % (str(orderid), str(verify))
                         return render(request, 'user/message.html', locals())
                 else:
                     state = "错误码 101"
