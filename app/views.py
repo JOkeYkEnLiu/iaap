@@ -104,6 +104,8 @@ def user_register(request):
             else:
                 new_user = User.objects.create(username=username,email=email,password=password)
                 new_user.save()
+                new_user.set_password(password)
+                new_user.save()
                 state = 'success'
                 auth.login(request, new_user)
     return render(request, 'auth/register.html', locals())
