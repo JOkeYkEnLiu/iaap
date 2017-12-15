@@ -309,4 +309,31 @@ def print_return(request):
                 else:
                     return HttpResponseRedirect('/user/print/new')
     else:
-        return HttpResponseRedirect('/user/print/new')
+        orderid = request.GET.get('orderid')
+        if orderid:
+            print_job = PrintJobs.objects.get(order=Order.objects.get(orderid=orderid))
+                if print_job.order.payment > 1:
+                    if print_job.status == 1:
+                        state = "打印成功"
+                        stateDetail = "如果打印机未能正常打印，请联系管理员。"
+                        return render(request, 'user/message.html', locals())
+                    else:
+                        state = "打印失败"
+                        stateDetail = "请检查是否付款成功，如有疑问，请联系管理员。"
+                        return render(request, 'user/message.html', locals())
+                else:
+                    state = "请求错误"
+                    stateDetail = "如果打印机未能正常打印，请联系管理员。"
+                    return render(request, 'user/message.html', locals())
+        else:
+            return HttpResponseRedirect('/user/print/new')
+
+def recharge(request):
+    user = User.objects.get(id=request.user.id)
+    available_pages = user.profile.balance / 0.5
+    paysAPIWeChat = paysAPI(uid=request.user.id, price=print_job.cost, istype=2, orderid=print_job.order.orderid)
+    paysAPIAli = paysAPI(uid=request.user.id, price=print_job.cost, istype=1, orderid=print_job.order.orderid)
+    return render(request, 'user/pay/balance.html', locals())
+
+def recharge_return(request):
+    pass
