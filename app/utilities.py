@@ -55,8 +55,8 @@ def doPrint(print_job):
         run = run + " " + printer.page_ranges + " " + '"' + print_job.page_ranges + '"'
     run = run + " " +printer.copies + " " + str(print_job.copies)
     run = run + " " + print_job.upload.path
-    # os.system(run)
-    print(run)
+    os.system(run)
+    # print(run)
     afterPrint(print_job)
 
 def beforePaysAPIPrint(print_job,paysAPIreturn):
@@ -98,5 +98,5 @@ def doPaysAPIPrint(print_job):
         run = run + " " + printer.page_ranges + " " + '"' + print_job.page_ranges + '"'
     run = run + " " + printer.copies + " " + str(print_job.copies)
     run = run + " " + print_job.upload.path
-    # os.system(run)
-    print(run)
+    os.system(run)
+    # print(run)
