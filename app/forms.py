@@ -135,4 +135,5 @@ class NewOrderForm(forms.Form):
         attrs={'class': 'form-control m-input', "type": "number", "value": 1, "min": 1}))
 
 class BalanceRechargeForm(forms.form):
-    price = forms.DecimalField(max_digits=10, decimal_places=2, widget=forms.)
+    # price = forms.DecimalField(max_digits=10, decimal_places=2, widget=forms.)
+    pass
