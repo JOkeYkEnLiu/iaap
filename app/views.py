@@ -312,19 +312,19 @@ def print_return(request):
         orderid = request.GET.get('orderid')
         if orderid:
             print_job = PrintJobs.objects.get(order=Order.objects.get(orderid=orderid))
-                if print_job.order.payment > 1:
-                    if print_job.status == 1:
-                        state = "打印成功"
-                        stateDetail = "如果打印机未能正常打印，请联系管理员。"
-                        return render(request, 'user/message.html', locals())
-                    else:
-                        state = "打印失败"
-                        stateDetail = "请检查是否付款成功，如有疑问，请联系管理员。"
-                        return render(request, 'user/message.html', locals())
-                else:
-                    state = "请求错误"
+            if print_job.order.payment > 1:
+                if print_job.status == 1:
+                    state = "打印成功"
                     stateDetail = "如果打印机未能正常打印，请联系管理员。"
                     return render(request, 'user/message.html', locals())
+                else:
+                    state = "打印失败"
+                    stateDetail = "请检查是否付款成功，如有疑问，请联系管理员。"
+                    return render(request, 'user/message.html', locals())
+            else:
+                state = "请求错误"
+                stateDetail = "如果打印机未能正常打印，请联系管理员。"
+                return render(request, 'user/message.html', locals())
         else:
             return HttpResponseRedirect('/user/print/new')
 
