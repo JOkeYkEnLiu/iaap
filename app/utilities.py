@@ -9,13 +9,13 @@ def getCost(print_job):
     file_page = print_job.file_pages
     sided = print_job.sided
     number_up = print_job.number_up
-
+    copies = print_job.copies
     if sided == 1:
         p = 1
     elif sided>1:
         p = 0.5
     
-    print_page = math.ceil(file_page * (1/number_up) * p)
+    print_page = math.ceil(file_page * (1/number_up) * p) * copies
     cost = cost_per_page * print_page
     return [print_page,cost]
 

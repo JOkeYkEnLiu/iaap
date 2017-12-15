@@ -214,7 +214,11 @@ def new_print_job(request):
                 print_job.order.save()
                 print_job.save()
                 return HttpResponseRedirect('/user/print/pay?orderid=%s&verify=%s'%(str(order.orderid),str(print_job.verify)))
-
+        else:
+            state = '订单创建错误'
+            stateDetail = '表单无效，请返回重试。'
+            redirect_url = '/user/print/new'
+            return render(request, 'user/message.html', locals())
     else:
         if request.GET.get('orderid'):
             form = QuickNewOrderForm(initial={"pid": 1, "sided": 1})
