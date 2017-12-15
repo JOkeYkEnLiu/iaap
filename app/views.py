@@ -297,7 +297,7 @@ def print_return(request):
                     stateDetail = "如果您使用的是在线支付并且已经支付完成，打印机将正常打印。"
                     return render(request, 'user/message.html', locals())
             else:
-                if print_job.order.payment == 2:
+                if print_job.order.payment > 1:
                     if print_job.status == 0:
                         state = "打印成功"
                         stateDetail = "如果打印机未能正常打印，请联系管理员。"
@@ -313,7 +313,7 @@ def print_return(request):
         if orderid:
             print_job = PrintJobs.objects.get(order=Order.objects.get(orderid=orderid))
             if print_job.order.payment > 1:
-                if print_job.status == 1:
+                if print_job.status == 0:
                     state = "打印成功"
                     stateDetail = "如果打印机未能正常打印，请联系管理员。"
                     return render(request, 'user/message.html', locals())
