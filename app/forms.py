@@ -87,8 +87,8 @@ class QuickNewOrderForm(forms.Form):
         attrs={"type": "hidden", "value": "A4"}))
     page_range = forms.CharField(required=False, max_length=128, widget=forms.TextInput(
         attrs={"type": "hidden", "value": ""}))
-    copies = forms.IntegerField(widget=forms.NumberInput(
-        attrs={'class': 'form-control m-input', "type": "number", "value": 1}))
+    copies = forms.IntegerField(min_value=1,widget=forms.NumberInput(
+        attrs={'class': 'form-control m-input', "type": "number", "value": 1,"min": 1}))
 
 
 class NewOrderForm(forms.Form):
@@ -131,5 +131,8 @@ class NewOrderForm(forms.Form):
         'class': 'form-control m-input', "value": "A4"}))
     page_range = forms.CharField(required=False, max_length=128, widget=forms.TextInput(
         attrs={'class': 'form-control m-input', "value": ""}))
-    copies = forms.IntegerField(widget=forms.NumberInput(
-        attrs={'class': 'form-control m-input', "type": "number", "value": 1}))
+    copies = forms.IntegerField(min_value=1, widget=forms.NumberInput(
+        attrs={'class': 'form-control m-input', "type": "number", "value": 1, "min": 1}))
+
+class BalanceRechargeForm(forms.form):
+    price = forms.DecimalField(max_digits=10, decimal_places=2, widget=forms.)
