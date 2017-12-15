@@ -24,7 +24,7 @@ class Profile(models.Model):
         instance.profile.save()
 
     def __str__(self):
-            return "%s" % (User.objects.get(pk=self.uid).username)
+            return "%s" % (User.objects.get(pk=self.id).username)
 
 class BalanceLog(models.Model):
     """
