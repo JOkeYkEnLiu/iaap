@@ -176,38 +176,44 @@ def new_print_job(request):
         else:
             form = QuickNewOrderForm(request.POST, request.FILES)
         if form.is_valid():
-            order = Order(order_type = 1,
-                          uid = request.user.id,
-                          created_time = datetime.datetime.now(),
-                          isPaid = 0,
-                          price = 0.00,
-                          payment = 1,
-                          )
-            order.save()
-            print_job = PrintJobs(order=order,
-                                  pid=form.cleaned_data['pid'],
-                                  upload=request.FILES['upload'],
-                                  verify=''.join(random.sample(string.ascii_letters + string.digits, 8)),
-                                  sided=form.cleaned_data['sided'],
-                                  number_up=form.cleaned_data['number_up'],
-                                  number_up_layout=form.cleaned_data['number_up_layout'],
-                                  media=form.cleaned_data['media'],
-                                  page_ranges=form.cleaned_data['page_range'],
-                                  copies=form.cleaned_data['copies'],
-                                  print_pages=0,
-                                  cost=0,
-                                  status=1,
-                                )
-            print_job.save()
-            print_job.file_pages = getPDFPages(print_job.upload.path)
-            print_job.save()
-            cost=getCost(print_job)
-            print_job.print_pages=cost[0]
-            print_job.cost=cost[1]
-            print_job.order.price = cost[1]
-            print_job.order.save()
-            print_job.save()
-            return HttpResponseRedirect('/user/print/pay?orderid=%s&verify=%s'%(str(order.orderid),str(print_job.verify)))
+            if !(request.FILES['upload'].name.endswith(".pdf")):
+                state = '订单创建错误'
+                stateDetail = '请检查上传文件是否为 PDF'
+                redirect_url = '/user/print/new'
+                return render(request, 'user/message.html', locals())
+            else:
+                order = Order(order_type = 1,
+                            uid = request.user.id,
+                            created_time = datetime.datetime.now(),
+                            isPaid = 0,
+                            price = 0.00,
+                            payment = 1,
+                            )
+                order.save()
+                print_job = PrintJobs(order=order,
+                                    pid=form.cleaned_data['pid'],
+                                    upload=request.FILES['upload'],
+                                    verify=''.join(random.sample(string.ascii_letters + string.digits, 8)),
+                                    sided=form.cleaned_data['sided'],
+                                    number_up=form.cleaned_data['number_up'],
+                                    number_up_layout=form.cleaned_data['number_up_layout'],
+                                    media=form.cleaned_data['media'],
+                                    page_ranges=form.cleaned_data['page_range'],
+                                    copies=form.cleaned_data['copies'],
+                                    print_pages=0,
+                                    cost=0,
+                                    status=1,
+                                    )
+                print_job.save()
+                print_job.file_pages = getPDFPages(print_job.upload.path)
+                print_job.save()
+                cost=getCost(print_job)
+                print_job.print_pages=cost[0]
+                print_job.cost=cost[1]
+                print_job.order.price = cost[1]
+                print_job.order.save()
+                print_job.save()
+                return HttpResponseRedirect('/user/print/pay?orderid=%s&verify=%s'%(str(order.orderid),str(print_job.verify)))
 
     else:
         if request.GET.get('orderid'):
