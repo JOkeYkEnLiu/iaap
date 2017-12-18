@@ -140,13 +140,7 @@
                     <div class="m-portlet__head-tools">
                         <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
                             <li class="nav-item m-tabs__item">
-                                <a class="nav-link m-tabs__link active" data-toggle="tab" href="#payment_1" role="tab">
-                                    <i class="flaticon-share m--hide"></i>
-                                    余额支付
-                                </a>
-                            </li>
-                            <li class="nav-item m-tabs__item">
-                                <a class="nav-link m-tabs__link" data-toggle="tab" href="#payment_2" role="tab">
+                                <a class="nav-link m-tabs__link active" data-toggle="tab" href="#payment_2" role="tab">
                                     <i class="flaticon-share m--hide"></i>
                                     微信支付
                                 </a>
@@ -161,48 +155,7 @@
                     </div>
                 </div>
                 <div class="tab-content">
-                    <div class="tab-pane active" id="payment_1">
-                        <form class="m-form m-form--fit m-form--label-align-right" action="/user/print/return" method="POST">
-                            {% csrf_token %}
-                            <input type="hidden" name="orderid" value="{{print_job.order.orderid}}">
-                            <input type="hidden" name="verify" value="{{print_job.verify}}">
-                            <div class="m-portlet__body">
-                                <div class="form-group m-form__group row">
-                                    <label for="example-text-input" class="col-2 col-form-label">
-                                        账户余额
-                                    </label>
-                                    <div class="col-7">
-                                        <input class="form-control m-input" value="¥{{user.profile.balance}}" type="text" disabled>
-                                    </div>
-                                </div>
-                                <div class="form-group m-form__group row">
-                                    <label for="example-text-input" class="col-2 col-form-label">
-                                        扣款金额
-                                    </label>
-                                    <div class="col-7">
-                                        <input class="form-control m-input" value="¥{{print_job.cost}}" type="text" disabled>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="m-portlet__foot m-portlet__foot--fit">
-                                <div class="m-form__actions">
-                                    <div class="row">
-                                        <div class="col-2"></div>
-                                        <div class="col-7">
-                                            <button type="sumbit" class="btn btn-accent m-btn m-btn--air m-btn--custom">
-                                                支付
-                                            </button>
-                                            &nbsp;&nbsp;
-                                            <button type="reset" class="btn btn-secondary m-btn m-btn--air m-btn--custom">
-                                                取消
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="tab-pane" id="payment_2">
+                    <div class="tab-pane active" id="payment_2">
                         <form class="m-form m-form--fit m-form--label-align-right" action="https://pay.paysapi.com/" method="POST">
                             <div class="m-portlet__body">
                                 <input type="hidden" name="uid" value="{{paysAPIWeChat.uid}}">
