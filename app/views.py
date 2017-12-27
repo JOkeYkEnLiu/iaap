@@ -320,6 +320,7 @@ def print_return(request):
                 if print_job.status == 0:
                     state = "打印成功"
                     stateDetail = "如果打印机未能正常打印，请联系管理员。"
+                    redirect_url = '/user/print/new'
                     return render(request, 'user/message.html', locals())
                 else:
                     state = "打印失败"
