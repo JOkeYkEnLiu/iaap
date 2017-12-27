@@ -286,6 +286,7 @@ def print_return(request):
                             doPrint(print_job)
                             state = "打印成功"
                             stateDetail = "如果打印机未能正常打印，请联系管理员。"
+                            redirect_url = '/user/print/new'
                             return render(request, 'user/message.html', locals())
                         else:
                             return HttpResponseRedirect('/user/print/new?orderid=%s'%orderid)
