@@ -14,8 +14,8 @@ class paysAPI(object):
     def __init__(self, uid, price, istype, orderid):
         self.uid = PAYSAPIUID
         self.PAYSAPITOKEN = PAYSAPITOKEN
-        self.RETURN_URL = "http://print.iaa.ink:58000/user/print/return"
-        self.NOTIFY_URL = "http://print.iaa.ink:58000/notify_url"
+        self.RETURN_URL = "https://print.iaa.ink/user/print/return"
+        self.NOTIFY_URL = "https://print.iaa.ink/notify_url"
         self.orderuid = uid
         self.price = price
         self.istype = istype
